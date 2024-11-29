@@ -3,12 +3,20 @@ package com.project.workout.domain;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+//@RepositoryRestResource(path="test")
+@RepositoryRestResource
 public interface ExerciseRepository extends CrudRepository<Exercise, Long> {
 	
-	List<Exercise> findByNameIgnoreCaseContaining(String name);
+	//http://localhost:8080/api/exercises/search/findByNameIgnoreCaseContaining?name=tricep
+	List<Exercise> findByNameIgnoreCaseContaining(@Param("name") String name);
 	
-	List<Exercise> findByBodyPartIgnoreCaseContaining(String bodyPart);
+	List<Exercise> findByBodyPartIgnoreCaseContaining(@Param("bodyPart") String bodyPart);
 	
-	List<Exercise> findByNameOrBodyPartIgnoreCaseContaining(String name, String bodyPart);
+	//GET http://localhost:8080/api/exercises/search/findByNameOrBodyPartIgnoreCaseContaining?name=bench&bodyPart=chest
+	List<Exercise> findByNameIgnoreCaseContainingOrBodyPartIgnoreCaseContaining(@Param("name") String name, 
+			@Param("bodyPart") String bodyPart);
 }
+
