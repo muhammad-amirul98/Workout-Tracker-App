@@ -8,6 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.project.workout.domain.AppUser;
+import com.project.workout.domain.AppUserRepository;
 import com.project.workout.domain.Exercise;
 import com.project.workout.domain.ExerciseRepository;
 import com.project.workout.domain.Workout;
@@ -19,10 +21,13 @@ public class WorkoutApplication implements CommandLineRunner {
 	
 	private final ExerciseRepository exerciseRepository;
 	private final WorkoutRepository workoutRepository;
+	private final AppUserRepository appUserRepository;
 	
-	public WorkoutApplication(ExerciseRepository exerciseRepository, WorkoutRepository workoutRepository) {
+	public WorkoutApplication(ExerciseRepository exerciseRepository, 
+			WorkoutRepository workoutRepository, AppUserRepository appUserRepository) {
 		this.exerciseRepository = exerciseRepository;
 		this.workoutRepository = workoutRepository;
+		this.appUserRepository = appUserRepository;
 	}
 
 	public static void main(String[] args) {
@@ -47,6 +52,13 @@ public class WorkoutApplication implements CommandLineRunner {
 			logger.info("name: {}, sets: {}, reps: {}", 
 					exercise.getName(), exercise.getSets(), exercise.getReps());
 		}
+		
+//		user: user, pass: user	
+		appUserRepository.save(new AppUser("user",
+				"$2a$12$A8erCOL2GtJ8.qZlnXFYjuCLBjU34z6Och.oXnQ8CowweXmG87c/G","USER"));
+//		user: admin, pass:admin
+		appUserRepository.save(new AppUser("admin",
+				"$2a$12$AjGhq1O2CW9Qqzysx.4xSupPZdJ/Bt94Pjm2af8w22UDC0wFhKcFu","ADMIN"));
 		
 	}
 
