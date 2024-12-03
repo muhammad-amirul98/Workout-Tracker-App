@@ -13,6 +13,7 @@ import com.project.workout.domain.AppUserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+	
 	private final AppUserRepository appUserRepository;
 	
 	public UserDetailsServiceImpl(AppUserRepository appUserRepository) {
