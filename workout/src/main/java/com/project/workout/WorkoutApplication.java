@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
 import com.project.workout.domain.AppUser;
 import com.project.workout.domain.AppUserRepository;
@@ -16,6 +17,7 @@ import com.project.workout.domain.Workout;
 import com.project.workout.domain.WorkoutRepository;
 
 @SpringBootApplication
+@EnableMethodSecurity
 public class WorkoutApplication implements CommandLineRunner {
 	private static final Logger logger = LoggerFactory.getLogger(WorkoutApplication.class);
 	
