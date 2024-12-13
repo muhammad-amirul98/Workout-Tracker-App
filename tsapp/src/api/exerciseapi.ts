@@ -7,3 +7,10 @@ export const getExercises = async (): Promise<ExerciseResponse[]> => {
   );
   return response.data._embedded.exercises;
 };
+
+export const deleteExercise = async (
+  link: string
+): Promise<ExerciseResponse> => {
+  const response = await axios.delete(link);
+  return response.data;
+};
