@@ -4,6 +4,7 @@ import { useState } from "react";
 import { deleteExercise, getExercises } from "../api/exerciseapi";
 import { DataGrid, GridColDef, GridCellParams } from "@mui/x-data-grid";
 import { Snackbar } from "@mui/material";
+import AddExercise from "./AddExercise";
 // import { ExerciseResponse } from "../types";
 
 function Exerciselist() {
@@ -67,6 +68,7 @@ function Exerciselist() {
   } else {
     return (
       <>
+        <AddExercise />
         <DataGrid
           rows={data}
           columns={columns}

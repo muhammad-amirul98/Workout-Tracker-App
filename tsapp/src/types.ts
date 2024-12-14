@@ -17,6 +17,14 @@ export type ExerciseResponse = {
   };
 };
 
+export type Exercise = {
+  name: string;
+  bodyPart: string;
+  sets: number;
+  reps: number;
+  weight: number;
+};
+
 // "name": "tricep pulldown",
 //                 "bodyPart": "tricep",
 //                 "sets": 3,
