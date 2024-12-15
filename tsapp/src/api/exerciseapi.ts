@@ -1,5 +1,6 @@
 import { Exercise, ExerciseResponse } from "../types";
 import axios from "axios";
+import { ExerciseEntry } from "../types";
 
 export const getExercises = async (): Promise<ExerciseResponse[]> => {
   const response = await axios.get(
@@ -28,5 +29,16 @@ export const addExercise = async (
     }
   );
 
+  return response.data;
+};
+
+export const updateExercise = async (
+  exerciseEntry: ExerciseEntry
+): Promise<ExerciseResponse> => {
+  const response = await axios.put(exerciseEntry.url, exerciseEntry.exercise, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   return response.data;
 };

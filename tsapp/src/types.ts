@@ -25,6 +25,11 @@ export type Exercise = {
   weight: number;
 };
 
+export type ExerciseEntry = {
+  exercise: Exercise;
+  url: string;
+};
+
 // "name": "tricep pulldown",
 //                 "bodyPart": "tricep",
 //                 "sets": 3,
