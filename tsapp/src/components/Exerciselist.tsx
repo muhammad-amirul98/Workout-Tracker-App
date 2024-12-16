@@ -11,6 +11,9 @@ import {
 import { Snackbar } from "@mui/material";
 import AddExercise from "./AddExercise";
 import EditExercise from "./EditExercise";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Tooltip from "@mui/material/Tooltip";
 // import { ExerciseResponse } from "../types";
 
 function Exerciselist() {
@@ -56,19 +59,21 @@ function Exerciselist() {
       filterable: false,
       disableColumnMenu: true,
       renderCell: (params: GridCellParams) => (
-        <button
-          onClick={() => {
-            if (
-              window.confirm(
-                `Are you sure you want to delete ${params.row.name}?`
-              )
-            ) {
-              mutate(params.row._links.exercise.href);
-            }
-          }}
-        >
-          Delete
-        </button>
+        <Tooltip title="Delete exercise">
+          <IconButton
+            onClick={() => {
+              if (
+                window.confirm(
+                  `Are you sure you want to delete ${params.row.name}?`
+                )
+              ) {
+                mutate(params.row._links.exercise.href);
+              }
+            }}
+          >
+            <DeleteIcon aria-label="delete" fontSize="small" color="primary" />
+          </IconButton>
+        </Tooltip>
       ),
     },
   ];
@@ -99,6 +104,8 @@ function Exerciselist() {
           columns={columns}
           getRowId={(row) => row._links.self.href}
           slots={{ toolbar: GridToolbar }}
+          checkboxSelection
+          disableRowSelectionOnClick
         />
 
         <Snackbar

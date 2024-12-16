@@ -7,6 +7,10 @@ import ExerciseDialogContent from "./ExerciseDialogContent";
 import { useQueryClient } from "@tanstack/react-query";
 import { updateExercise } from "../api/exerciseapi";
 import { useMutation } from "@tanstack/react-query";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import EditIcon from "@mui/icons-material/Edit";
+import Tooltip from "@mui/material/Tooltip";
 
 type FormProps = {
   exercisedata: ExerciseResponse;
@@ -66,7 +70,12 @@ function EditExercise({ exercisedata, onExerciseUpdated }: FormProps) {
 
   return (
     <>
-      <button onClick={handleClickOpen}>Edit</button>
+      <Tooltip title="Edit exercise">
+        <IconButton size="small" onClick={handleClickOpen}>
+          <EditIcon aria-label="edit" fontSize="small" color="primary" />
+        </IconButton>
+      </Tooltip>
+
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Edit Exercise</DialogTitle>
         <ExerciseDialogContent
@@ -74,8 +83,8 @@ function EditExercise({ exercisedata, onExerciseUpdated }: FormProps) {
           handleChange={handleChange}
         />
         <DialogActions>
-          <button onClick={handleClose}>Cancel</button>
-          <button onClick={handleSave}>Save</button>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleSave}>Save</Button>
         </DialogActions>
       </Dialog>
     </>

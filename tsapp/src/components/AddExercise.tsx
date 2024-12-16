@@ -6,6 +6,7 @@ import { Exercise } from "../types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addExercise } from "../api/exerciseapi";
 import ExerciseDialogContent from "./ExerciseDialogContent";
+import Button from "@mui/material/Button";
 
 function AddExercise() {
   const queryClient = useQueryClient();
@@ -49,7 +50,7 @@ function AddExercise() {
 
   return (
     <>
-      <button onClick={handleClickOpen}>New Exercise</button>
+      <Button onClick={handleClickOpen}>New Exercise</Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>New Exercise</DialogTitle>
         <ExerciseDialogContent
@@ -57,8 +58,8 @@ function AddExercise() {
           handleChange={handleChange}
         />
         <DialogActions>
-          <button onClick={handleClose}>Cancel</button>
-          <button onClick={handleSave}>Save</button>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleSave}>Save</Button>
         </DialogActions>
       </Dialog>
     </>
