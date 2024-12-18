@@ -5,7 +5,8 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Exerciselist from "./components/Exerciselist";
+// import Exerciselist from "./components/Exerciselist";
+import Login from "./components/Login";
 
 const queryClient = new QueryClient();
 
@@ -19,7 +20,7 @@ function App() {
         </Toolbar>
       </AppBar>
       <QueryClientProvider client={queryClient}>
-        <Exerciselist />
+        <Login />
       </QueryClientProvider>
     </Container>
   );
