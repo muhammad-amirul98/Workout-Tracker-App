@@ -14,9 +14,15 @@ import EditExercise from "./EditExercise";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Tooltip from "@mui/material/Tooltip";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 // import { ExerciseResponse } from "../types";
 
-function Exerciselist() {
+type ExerciselistProps = {
+  logOut?: () => void;
+};
+
+function Exerciselist({ logOut }: ExerciselistProps) {
   const [open, setOpen] = useState(false);
 
   const [updateOpen, setUpdateOpen] = useState(false);
@@ -91,14 +97,20 @@ function Exerciselist() {
   });
 
   if (!isSuccess) {
-    console.log(data);
     return <span>Loading...</span>;
   } else if (error) {
     return <span>Error when fetching cars</span>;
   } else {
     return (
       <>
-        <AddExercise />
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <AddExercise />
+          <Button onClick={logOut}>Log out</Button>
+        </Stack>
         <DataGrid
           rows={data}
           columns={columns}

@@ -1,10 +1,22 @@
 import { Exercise, ExerciseResponse } from "../types";
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { ExerciseEntry } from "../types";
+
+const getAxiosConfig = (): AxiosRequestConfig => {
+  const token = sessionStorage.getItem("jwt");
+
+  return {
+    headers: {
+      Authorization: token,
+      "Content-Type": "application/json",
+    },
+  };
+};
 
 export const getExercises = async (): Promise<ExerciseResponse[]> => {
   const response = await axios.get(
-    `${import.meta.env.VITE_API_URL}/api/exercises`
+    `${import.meta.env.VITE_API_URL}/api/exercises`,
+    getAxiosConfig()
   );
   return response.data._embedded.exercises;
 };
@@ -12,7 +24,7 @@ export const getExercises = async (): Promise<ExerciseResponse[]> => {
 export const deleteExercise = async (
   link: string
 ): Promise<ExerciseResponse> => {
-  const response = await axios.delete(link);
+  const response = await axios.delete(link, getAxiosConfig());
   return response.data;
 };
 
@@ -22,11 +34,7 @@ export const addExercise = async (
   const response = await axios.post(
     `${import.meta.env.VITE_API_URL}/api/exercises`,
     exercise,
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
+    getAxiosConfig()
   );
 
   return response.data;
@@ -35,10 +43,10 @@ export const addExercise = async (
 export const updateExercise = async (
   exerciseEntry: ExerciseEntry
 ): Promise<ExerciseResponse> => {
-  const response = await axios.put(exerciseEntry.url, exerciseEntry.exercise, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response = await axios.put(
+    exerciseEntry.url,
+    exerciseEntry.exercise,
+    getAxiosConfig()
+  );
   return response.data;
 };

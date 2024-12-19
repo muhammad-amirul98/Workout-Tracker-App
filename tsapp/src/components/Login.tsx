@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Exerciselist from "./Exerciselist";
+import Snackbar from "@mui/material/Snackbar";
 
 type User = {
   username: string;
@@ -15,6 +16,8 @@ function Login() {
     username: "",
     password: "",
   });
+
+  const [open, setOpen] = useState(false);
 
   const [isAuthenticated, setAuth] = useState(false);
 
@@ -35,25 +38,56 @@ function Login() {
           setAuth(true);
         }
       })
-      .catch((err) => console.error(err));
+      .catch(() => setOpen(true));
+  };
+
+  const handleLogout = () => {
+    setAuth(false);
+    sessionStorage.setItem("jwt", "");
   };
 
   if (isAuthenticated) {
-    return <Exerciselist />;
+    return <Exerciselist logOut={handleLogout} />;
   } else {
     return (
-      <Stack spacing={2} alignItems="center" mt={2}>
-        <TextField name="username" label="Username" onChange={handleChange} />
-        <TextField
-          type="password"
-          name="password"
-          label="Password"
-          onChange={handleChange}
-        />
-        <Button variant="outlined" color="primary" onClick={handleLogin}>
-          Login
-        </Button>
-      </Stack>
+      // <Stack spacing={2} alignItems="center" mt={2}>
+      //   <TextField name="username" label="Username" onChange={handleChange} />
+      //   <TextField
+      //     type="password"
+      //     name="password"
+      //     label="Password"
+      //     onChange={handleChange}
+      //   />
+      //   <Button variant="outlined" color="primary" onClick={handleLogin}>
+      //     Login
+      //   </Button>
+      // </Stack>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleLogin();
+        }}
+        style={{ width: "100%" }}
+      >
+        <Stack spacing={2} alignItems="center" mt={2}>
+          <TextField name="username" label="Username" onChange={handleChange} />
+          <TextField
+            type="password"
+            name="password"
+            label="Password"
+            onChange={handleChange}
+          />
+          <Button variant="outlined" color="primary" type="submit">
+            Login
+          </Button>
+          <Snackbar
+            open={open}
+            autoHideDuration={3000}
+            onClose={() => setOpen(false)}
+            message="Login failed: Check your username and password"
+          />
+        </Stack>
+      </form>
     );
   }
 }
