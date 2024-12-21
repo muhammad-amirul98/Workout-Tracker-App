@@ -1,4 +1,4 @@
-// import "./App.css";
+import "./App.css";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
@@ -9,14 +9,19 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Login from "./components/Login";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
+import { useState } from "react";
 
 const queryClient = new QueryClient();
 
-type ExerciselistProps = {
-  logOut?: () => void;
-};
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-function App({ logOut }: ExerciselistProps) {
+  const logIn = () => setIsLoggedIn(true);
+  const logOut = () => {
+    sessionStorage.removeItem("jwt");
+    setIsLoggedIn(false);
+  };
+
   return (
     <Container maxWidth="xl">
       <CssBaseline />
@@ -25,21 +30,20 @@ function App({ logOut }: ExerciselistProps) {
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="h6">Workout Tracker</Typography>
           </Box>
-          <Button
-            onClick={logOut}
-            color="inherit"
-            sx={{
-              fontSize: "1.25rem", // Matches the font size of Typography variant="h6"
-              fontWeight: "400", // Matches the default Typography font weight
-              textTransform: "none", // Keeps the text case consistent with Typography
-            }}
-          >
-            Log Out
-          </Button>
+          {!isLoggedIn && (
+            <Button color="inherit" className="button">
+              Sign Up
+            </Button>
+          )}
+          {isLoggedIn && (
+            <Button onClick={logOut} color="inherit" className="button">
+              Log Out
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
       <QueryClientProvider client={queryClient}>
-        <Login />
+        <Login isAuthenticated={isLoggedIn} onLogin={logIn} />
       </QueryClientProvider>
     </Container>
   );

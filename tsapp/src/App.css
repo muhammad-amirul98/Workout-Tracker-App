@@ -40,3 +40,9 @@
 .read-the-docs {
   color: #888;
 } */
+
+.button {
+  font-size: 1.25rem; /* Matches the font size of Typography variant="h6" */
+  font-weight: 400; /* Matches the default Typography font weight */
+  text-transform: none; /* Keeps the text case consistent with Typography */
+}

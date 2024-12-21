@@ -15,14 +15,9 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Tooltip from "@mui/material/Tooltip";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
 // import { ExerciseResponse } from "../types";
 
-type ExerciselistProps = {
-  logOut?: () => void;
-};
-
-function Exerciselist({ logOut }: ExerciselistProps) {
+function Exerciselist() {
   const [open, setOpen] = useState(false);
 
   const [updateOpen, setUpdateOpen] = useState(false);
@@ -109,7 +104,6 @@ function Exerciselist({ logOut }: ExerciselistProps) {
           justifyContent="space-between"
         >
           <AddExercise />
-          <Button onClick={logOut}>Log out</Button>
         </Stack>
         <DataGrid
           rows={data}

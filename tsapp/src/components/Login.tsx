@@ -11,15 +11,18 @@ type User = {
   password: string;
 };
 
-function Login() {
+type LoginProps = {
+  isAuthenticated: boolean;
+  onLogin: () => void;
+};
+
+function Login({ isAuthenticated, onLogin }: LoginProps) {
   const [user, setUser] = useState<User>({
     username: "",
     password: "",
   });
 
   const [open, setOpen] = useState(false);
-
-  const [isAuthenticated, setAuth] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUser({ ...user, [event.target.name]: event.target.value });
@@ -35,19 +38,14 @@ function Login() {
 
         if (jwtToken != null) {
           sessionStorage.setItem("jwt", jwtToken);
-          setAuth(true);
+          onLogin();
         }
       })
       .catch(() => setOpen(true));
   };
 
-  const handleLogout = () => {
-    setAuth(false);
-    sessionStorage.setItem("jwt", "");
-  };
-
   if (isAuthenticated) {
-    return <Exerciselist logOut={handleLogout} />;
+    return <Exerciselist />;
   } else {
     return (
       // <Stack spacing={2} alignItems="center" mt={2}>

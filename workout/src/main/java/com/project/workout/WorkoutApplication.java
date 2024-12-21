@@ -57,10 +57,11 @@ public class WorkoutApplication implements CommandLineRunner {
 		
 //		user: user, pass: user	
 		appUserRepository.save(new AppUser("user",
-				"$2a$12$A8erCOL2GtJ8.qZlnXFYjuCLBjU34z6Och.oXnQ8CowweXmG87c/G","USER"));
+				"$2a$12$A8erCOL2GtJ8.qZlnXFYjuCLBjU34z6Och.oXnQ8CowweXmG87c/G","USER", 
+				"user@gmail.com", "91234567"));
 //		user: admin, pass:admin
 		appUserRepository.save(new AppUser("admin",
-				"$2a$12$AjGhq1O2CW9Qqzysx.4xSupPZdJ/Bt94Pjm2af8w22UDC0wFhKcFu","ADMIN"));
+				"$2a$12$AjGhq1O2CW9Qqzysx.4xSupPZdJ/Bt94Pjm2af8w22UDC0wFhKcFu","ADMIN","admin@gmail.com","91234568"));
 		
 	}
 

@@ -21,6 +21,12 @@ public class AppUser {
 	
 	@Column(nullable=false)
 	private String role;
+	
+	@Column(nullable=false)
+	private String email;
+	
+	@Column(nullable=false)
+	private String number;
 
 	public AppUser() {
 		super();
@@ -32,6 +38,16 @@ public class AppUser {
 		this.username = username;
 		this.password = password;
 		this.role = role;
+	}
+	
+
+	public AppUser(String username, String password, String role, String email, String number) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.role = role;
+		this.email = email;
+		this.number = number;
 	}
 
 	public String getUsername() {
