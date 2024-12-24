@@ -10,10 +10,14 @@ import Login from "./components/Login";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
 import { useState } from "react";
+import SignUp from "./components/SignUp";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 const queryClient = new QueryClient();
 
 function App() {
+  const navigate = useNavigate();
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const logIn = () => setIsLoggedIn(true);
@@ -31,22 +35,94 @@ function App() {
             <Typography variant="h6">Workout Tracker</Typography>
           </Box>
           {!isLoggedIn && (
-            <Button color="inherit" className="button">
+            <Button
+              onClick={() => navigate("/signup")}
+              color="inherit"
+              sx={{
+                fontSize: "1.25rem",
+                fontWeight: 400,
+                textTransform: "none",
+              }}
+            >
               Sign Up
             </Button>
           )}
           {isLoggedIn && (
-            <Button onClick={logOut} color="inherit" className="button">
+            <Button
+              onClick={logOut}
+              color="inherit"
+              sx={{
+                fontSize: "1.25rem",
+                fontWeight: 400,
+                textTransform: "none",
+              }}
+            >
               Log Out
             </Button>
           )}
         </Toolbar>
       </AppBar>
       <QueryClientProvider client={queryClient}>
-        <Login isAuthenticated={isLoggedIn} onLogin={logIn} />
+        <Routes>
+          <Route
+            path="/"
+            element={<Login isAuthenticated={isLoggedIn} onLogin={logIn} />}
+          />
+          <Route path="/signup" element={<SignUp />}></Route>
+        </Routes>
       </QueryClientProvider>
     </Container>
   );
 }
 
 export default App;
+
+// return (
+//   <Router>
+//     <Container maxWidth="xl">
+//       <CssBaseline />
+//       <AppBar position="static">
+//         <Toolbar>
+//           <Box sx={{ flexGrow: 1 }}>
+//             <Typography variant="h6">Workout Tracker</Typography>
+//           </Box>
+//           {!isLoggedIn && (
+//             <Button
+//               onClick={() => navigate("/signup")}
+//               color="inherit"
+//               sx={{
+//                 fontSize: "1.25rem",
+//                 fontWeight: 400,
+//                 textTransform: "none",
+//               }}
+//             >
+//               Sign Up
+//             </Button>
+//           )}
+//           {isLoggedIn && (
+//             <Button
+//               onClick={logOut}
+//               color="inherit"
+//               sx={{
+//                 fontSize: "1.25rem",
+//                 fontWeight: 400,
+//                 textTransform: "none",
+//               }}
+//             >
+//               Log Out
+//             </Button>
+//           )}
+//         </Toolbar>
+//       </AppBar>
+//       <QueryClientProvider client={queryClient}>
+//         <Routes>
+//           <Route
+//             path="/"
+//             element={<Login isAuthenticated={isLoggedIn} onLogin={logIn} />}
+//           ></Route>
+// <Route path="/signup" element={<SignUp />}></Route>
+//         </Routes>
+//       </QueryClientProvider>
+//     </Container>
+//   </Router>
+// );
