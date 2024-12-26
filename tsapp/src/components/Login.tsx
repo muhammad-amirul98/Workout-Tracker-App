@@ -60,32 +60,39 @@ function Login({ isAuthenticated, onLogin }: LoginProps) {
       //     Login
       //   </Button>
       // </Stack>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleLogin();
-        }}
-        style={{ width: "100%" }}
-      >
-        <Stack spacing={2} alignItems="center" mt={2}>
-          <TextField name="username" label="Username" onChange={handleChange} />
-          <TextField
-            type="password"
-            name="password"
-            label="Password"
-            onChange={handleChange}
-          />
-          <Button variant="outlined" color="primary" type="submit">
-            Login
-          </Button>
-          <Snackbar
-            open={open}
-            autoHideDuration={3000}
-            onClose={() => setOpen(false)}
-            message="Login failed: Check your username and password"
-          />
-        </Stack>
-      </form>
+      <>
+        <br />
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleLogin();
+          }}
+          style={{ width: "100%" }}
+        >
+          <Stack spacing={2} alignItems="center" mt={2}>
+            <TextField
+              name="username"
+              label="Username"
+              onChange={handleChange}
+            />
+            <TextField
+              type="password"
+              name="password"
+              label="Password"
+              onChange={handleChange}
+            />
+            <Button variant="outlined" color="primary" type="submit">
+              Login
+            </Button>
+            <Snackbar
+              open={open}
+              autoHideDuration={3000}
+              onClose={() => setOpen(false)}
+              message="Login failed: Check your username and password"
+            />
+          </Stack>
+        </form>
+      </>
     );
   }
 }

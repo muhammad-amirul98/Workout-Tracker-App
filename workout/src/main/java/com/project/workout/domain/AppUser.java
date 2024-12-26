@@ -25,9 +25,6 @@ public class AppUser {
 	@Column(nullable=false)
 	private String email;
 	
-	@Column(nullable=false)
-	private String number;
-
 	public AppUser() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -41,13 +38,12 @@ public class AppUser {
 	}
 	
 
-	public AppUser(String username, String password, String role, String email, String number) {
+	public AppUser(String username, String password, String role, String email) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.role = role;
 		this.email = email;
-		this.number = number;
 	}
 
 	public String getUsername() {

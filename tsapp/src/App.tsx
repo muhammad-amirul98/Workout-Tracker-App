@@ -19,6 +19,11 @@ function App() {
   const navigate = useNavigate();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isSigningUp, setIsSigningUp] = useState(false);
+
+  const signingUp = () => {
+    setIsSigningUp(true);
+  };
 
   const logIn = () => setIsLoggedIn(true);
   const logOut = () => {
@@ -34,9 +39,12 @@ function App() {
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="h6">Workout Tracker</Typography>
           </Box>
-          {!isLoggedIn && (
+          {!isSigningUp && !isLoggedIn && (
             <Button
-              onClick={() => navigate("/signup")}
+              onClick={() => {
+                signingUp();
+                navigate("/signup");
+              }}
               color="inherit"
               sx={{
                 fontSize: "1.25rem",

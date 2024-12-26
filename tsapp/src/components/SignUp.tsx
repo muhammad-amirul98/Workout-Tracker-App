@@ -1,9 +1,11 @@
 import { useState } from "react";
 // import axios from "axios";
-import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import { Typography } from "@mui/material";
+import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
+// import Box from "@mui/material/Box";
 
 type User = {
   username: string;
@@ -41,6 +43,8 @@ function SignUp() {
     }
   };
 
+  const handleSignUp = () => {};
+
   //   const handleSignUp = () => {
   //     axios
   //       .post(import.meta.env.VITE_API_URL + "/signup", userData, {
@@ -50,7 +54,14 @@ function SignUp() {
   //   };
   return (
     <>
-      <DialogContent>
+      <br />
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSignUp();
+        }}
+        style={{ width: "100%" }}
+      >
         <Stack spacing={2} alignItems="center" mt={1}>
           <TextField
             label="Name"
@@ -81,11 +92,32 @@ function SignUp() {
           <TextField
             label="Email"
             name="email"
+            type="email"
             value={userData.email}
             onChange={handleChange}
           ></TextField>
+          <Button type="submit">Sign Up</Button>
         </Stack>
-      </DialogContent>
+      </form>
+      <br />
+      <Stack
+        alignItems="center"
+        mt={1}
+        sx={{
+          border: "1px solid #ccc",
+          borderRadius: "8px",
+          padding: 2,
+          margin: "auto",
+          width: "fit-content",
+        }}
+      >
+        <Typography>
+          Have an account?{" "}
+          <Link href="/" underline="none">
+            Log in
+          </Link>
+        </Typography>
+      </Stack>
     </>
   );
 }
