@@ -1,10 +1,14 @@
 package com.project.workout.domain;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class AppUser {
@@ -25,18 +29,13 @@ public class AppUser {
 	@Column(nullable=false)
 	private String email;
 	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+	private List<Workout> workouts;
+	
 	public AppUser() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	public AppUser(String username, String password, String role) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.role = role;
-	}
-	
 
 	public AppUser(String username, String password, String role, String email) {
 		super();
@@ -73,6 +72,26 @@ public class AppUser {
 	public Long getId() {
 		return id;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public List<Workout> getWorkouts() {
+		return workouts;
+	}
+
+	public void setWorkouts(List<Workout> workouts) {
+		this.workouts = workouts;
+	}
+	
+	
+	
+	
 	
 	
 	

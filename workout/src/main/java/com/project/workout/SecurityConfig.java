@@ -80,7 +80,7 @@ public class SecurityConfig {
 		.cors(withDefaults()).sessionManagement((sessionManagement) -> sessionManagement.
 				sessionCreationPolicy(SessionCreationPolicy.STATELESS)).
 		authorizeHttpRequests((authorizeHttpRequests) -> 
-		authorizeHttpRequests.requestMatchers(HttpMethod.POST, "/login").permitAll().
+		authorizeHttpRequests.requestMatchers(HttpMethod.POST, "/login").permitAll().requestMatchers(HttpMethod.POST, "signup").permitAll().
 		anyRequest().authenticated())
 		.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
 		.exceptionHandling((exceptionHandling) -> exceptionHandling.authenticationEntryPoint(exceptionHandler));

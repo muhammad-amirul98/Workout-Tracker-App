@@ -5,6 +5,9 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Exerciselist from "./Exerciselist";
 import Snackbar from "@mui/material/Snackbar";
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
+// import Workoutlist from "./Workoutlist";
 
 type User = {
   username: string;
@@ -46,6 +49,7 @@ function Login({ isAuthenticated, onLogin }: LoginProps) {
 
   if (isAuthenticated) {
     return <Exerciselist />;
+    // return <Workoutlist />;
   } else {
     return (
       // <Stack spacing={2} alignItems="center" mt={2}>
@@ -67,7 +71,7 @@ function Login({ isAuthenticated, onLogin }: LoginProps) {
             e.preventDefault();
             handleLogin();
           }}
-          style={{ width: "100%" }}
+          style={{ width: "100%", marginBottom: "16px" }}
         >
           <Stack spacing={2} alignItems="center" mt={2}>
             <TextField
@@ -92,6 +96,23 @@ function Login({ isAuthenticated, onLogin }: LoginProps) {
             />
           </Stack>
         </form>
+        <Stack
+          alignItems="center"
+          sx={{
+            border: "1px solid #ccc",
+            borderRadius: "8px",
+            padding: 2,
+            margin: "auto",
+            width: "fit-content",
+          }}
+        >
+          <Typography>
+            Don't have an account?{" "}
+            <Link href="/signup" underline="none">
+              Sign Up
+            </Link>
+          </Typography>
+        </Stack>
       </>
     );
   }

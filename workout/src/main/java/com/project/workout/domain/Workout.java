@@ -7,9 +7,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -26,6 +29,11 @@ public class Workout {
 	@JsonIgnore
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="workout")
 	private List<Exercise> exercise;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="appuser_id")
+	private AppUser user;
+	
 	
 //	@ManyToMany(cascade=CascadeType.PERSIST)
 //	@JoinTable(name="exercise_workout", 

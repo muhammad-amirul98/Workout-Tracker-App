@@ -1,11 +1,10 @@
 import { useState } from "react";
-// import axios from "axios";
+import axios from "axios";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
-import { Typography } from "@mui/material";
+import { Snackbar, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
-// import Box from "@mui/material/Box";
 
 type User = {
   username: string;
@@ -15,9 +14,10 @@ type User = {
 };
 
 function SignUp() {
-  //   const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [error, setError] = useState<string>("");
+  const [passwordError, setError] = useState<string>("");
+  const [snackbarMessage, setSnackbarMessage] = useState("");
   const [userData, setUserData] = useState<User>({
     username: "",
     password: "",
@@ -43,15 +43,28 @@ function SignUp() {
     }
   };
 
-  const handleSignUp = () => {};
+  const handleSignUp = () => {
+    axios
+      .post(import.meta.env.VITE_API_URL + "/signup", userData, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then(() => {
+        setSnackbarMessage(
+          "Account successfully created. Redirecting to login..."
+        );
+        setOpen(true);
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2000);
+      })
+      .catch((error) => {
+        if (error.response) {
+          setSnackbarMessage(error.response.data);
+          setOpen(true);
+        }
+      });
+  };
 
-  //   const handleSignUp = () => {
-  //     axios
-  //       .post(import.meta.env.VITE_API_URL + "/signup", userData, {
-  //         headers: { "Content-Type": "application/json" },
-  //       })
-  //       .catch(() => setOpen(true));
-  //   };
   return (
     <>
       <br />
@@ -64,7 +77,7 @@ function SignUp() {
       >
         <Stack spacing={2} alignItems="center" mt={1}>
           <TextField
-            label="Name"
+            label="Username"
             name="username"
             value={userData.username}
             onChange={handleChange}
@@ -84,9 +97,9 @@ function SignUp() {
             onChange={handleConfirmPasswordChange}
             onBlur={validateConfirmPassword}
           ></TextField>
-          {error && ( // Render error message if it exists
+          {passwordError && ( // Render error message if it exists
             <Typography variant="body2" color="error">
-              {error}
+              {passwordError}
             </Typography>
           )}
           <TextField
@@ -96,7 +109,13 @@ function SignUp() {
             value={userData.email}
             onChange={handleChange}
           ></TextField>
-          <Button type="submit">Sign Up</Button>
+          <Button
+            type="submit"
+            variant="outlined"
+            disabled={Boolean(passwordError)}
+          >
+            Sign Up
+          </Button>
         </Stack>
       </form>
       <br />
@@ -118,6 +137,12 @@ function SignUp() {
           </Link>
         </Typography>
       </Stack>
+      <Snackbar
+        open={open}
+        autoHideDuration={2000}
+        onClose={() => setOpen(false)}
+        message={snackbarMessage}
+      ></Snackbar>
     </>
   );
 }

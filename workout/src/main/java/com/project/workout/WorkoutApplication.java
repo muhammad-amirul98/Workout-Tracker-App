@@ -38,22 +38,6 @@ public class WorkoutApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		Workout workout1 = new Workout("My Workout", "Push");
-		Workout workout2 = new Workout("My Second Workout", "Pull");
-		this.workoutRepository.saveAll(Arrays.asList(workout1, workout2));
-		
-		
-		this.exerciseRepository.save(new Exercise("tricep pulldown", "tricep", 3, 8, 12.5));
-		this.exerciseRepository.save(new Exercise("bicep curl", "bicep", 4, 8, 15));
-		this.exerciseRepository.save(new Exercise("bench press", "chest", 5, 5, 40));
-		this.exerciseRepository.save(new Exercise("tricep pulldown", "tricep", 3, 8, 12.5, workout1));
-		this.exerciseRepository.save(new Exercise("bicep curl", "bicep", 4, 8, 15, workout2));
-		this.exerciseRepository.save(new Exercise("bench press", "chest", 5, 5, 40, workout1));
-		
-		for (Exercise exercise: exerciseRepository.findAll()) {
-			logger.info("name: {}, sets: {}, reps: {}", 
-					exercise.getName(), exercise.getSets(), exercise.getReps());
-		}
 		
 //		user: user, pass: user	
 		appUserRepository.save(new AppUser("user",
@@ -62,6 +46,25 @@ public class WorkoutApplication implements CommandLineRunner {
 //		user: admin, pass:admin
 		appUserRepository.save(new AppUser("admin",
 				"$2a$12$AjGhq1O2CW9Qqzysx.4xSupPZdJ/Bt94Pjm2af8w22UDC0wFhKcFu","ADMIN","admin@gmail.com"));
+		
+		Workout workout1 = new Workout("My Workout", "Push");
+		Workout workout2 = new Workout("My Second Workout", "Pull");
+		this.workoutRepository.saveAll(Arrays.asList(workout1, workout2));
+		
+		
+		this.exerciseRepository.save(new Exercise("Tricep Pulldown", "Triceps", 3, 8, 12.5, workout1));
+		this.exerciseRepository.save(new Exercise("Shoulder Press", "Shoulders", 4, 8, 15, workout1));
+		this.exerciseRepository.save(new Exercise("Bench Press", "Chest", 5, 5, 40, workout1));
+		this.exerciseRepository.save(new Exercise("Pull Ups", "Back", 3, 8, 12.5, workout2));
+		this.exerciseRepository.save(new Exercise("Deadlift", "Back", 4, 8, 15, workout2));
+		this.exerciseRepository.save(new Exercise("Bicep Curls", "Biceps", 5, 5, 40, workout2));
+		
+		for (Exercise exercise: exerciseRepository.findAll()) {
+			logger.info("name: {}, sets: {}, reps: {}", 
+					exercise.getName(), exercise.getSets(), exercise.getReps());
+		}
+		
+
 		
 	}
 

@@ -9,5 +9,9 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 public interface AppUserRepository extends CrudRepository<AppUser, Long>{
 	Optional<AppUser> findByUsername(String username);
 	
+	boolean existsByUsername(String username);
+	
+	boolean existsByEmail(String email);
+	
 	
 }

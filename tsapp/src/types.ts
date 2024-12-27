@@ -17,6 +17,22 @@ export type ExerciseResponse = {
   };
 };
 
+export type WorkoutResponse = {
+  name: string;
+  type: string;
+  _links: {
+    self: {
+      href: string;
+    };
+    workout: {
+      href: string;
+    };
+    exercise: {
+      href: string;
+    };
+  };
+};
+
 export type Exercise = {
   name: string;
   bodyPart: string;

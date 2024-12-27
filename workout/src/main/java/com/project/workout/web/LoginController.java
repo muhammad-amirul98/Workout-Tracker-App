@@ -33,7 +33,7 @@ public class LoginController {
 			
 			//Build response with the generated token
 			return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION,
-					"Bearer" + jwts).header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS,
+					"Bearer " + jwts).header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS,
 					"Authorization").build();
 			
 		}

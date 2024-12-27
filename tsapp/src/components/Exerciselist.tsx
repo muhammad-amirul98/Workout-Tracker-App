@@ -94,7 +94,7 @@ function Exerciselist() {
   if (!isSuccess) {
     return <span>Loading...</span>;
   } else if (error) {
-    return <span>Error when fetching cars</span>;
+    return <span>Error when fetching exercises</span>;
   } else {
     return (
       <>

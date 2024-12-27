@@ -25,7 +25,7 @@ public class Exercise {
 	private double weight;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="workout")
+	@JoinColumn(name="workout_id")
 	private Workout workout;
 	
 //	@ManyToMany(mappedBy="exercises")
