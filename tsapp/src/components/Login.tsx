@@ -3,11 +3,11 @@ import axios from "axios";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import Exerciselist from "./Exerciselist";
+// import Exerciselist from "./Exerciselist";
 import Snackbar from "@mui/material/Snackbar";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
-// import Workoutlist from "./Workoutlist";
+import Workoutlist from "./Workoutlist";
 
 type User = {
   username: string;
@@ -48,8 +48,8 @@ function Login({ isAuthenticated, onLogin }: LoginProps) {
   };
 
   if (isAuthenticated) {
-    return <Exerciselist />;
-    // return <Workoutlist />;
+    // return <Exerciselist />;
+    return <Workoutlist />;
   } else {
     return (
       // <Stack spacing={2} alignItems="center" mt={2}>
