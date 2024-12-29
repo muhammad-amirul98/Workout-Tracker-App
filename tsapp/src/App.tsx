@@ -11,19 +11,15 @@ import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
 import { useState } from "react";
 import SignUp from "./components/SignUp";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 
 const queryClient = new QueryClient();
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isSigningUp, setIsSigningUp] = useState(false);
-
-  const signingUp = () => {
-    setIsSigningUp(true);
-  };
 
   const logIn = () => setIsLoggedIn(true);
   const logOut = () => {
@@ -39,10 +35,9 @@ function App() {
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="h6">Workout Tracker</Typography>
           </Box>
-          {!isSigningUp && !isLoggedIn && (
+          {location.pathname !== "/signup" && !isLoggedIn && (
             <Button
               onClick={() => {
-                signingUp();
                 navigate("/signup");
               }}
               color="inherit"

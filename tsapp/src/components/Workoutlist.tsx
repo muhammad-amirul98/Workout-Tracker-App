@@ -1,12 +1,13 @@
 // import { useQueryClient } from "@tanstack/react-query";
 import { getWorkouts } from "../api/workoutapi";
-import { Stack } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { GridColDef } from "@mui/x-data-grid";
 import { useQuery } from "@tanstack/react-query";
 import { GridToolbar } from "@mui/x-data-grid";
 // import { ExerciseResponse } from "../types";
-// import { useState } from "react";
+import { useState } from "react";
+// import { GridRowParams } from "@mui/x-data-grid";
 
 function Workoutlist() {
   // const queryClient = useQueryClient();
@@ -15,39 +16,56 @@ function Workoutlist() {
     queryFn: getWorkouts,
   });
 
-  // const [expandedRows, setExpandedRows] = useState<string[]>([]);
+  const [expandedRows, setExpandedRows] = useState<string[]>([]);
 
-  // const handleRowClick = async (params: GridRowParams) => {
-  //   const workoutId = params.row._links.self.href.split("/").pop();
-  //   if (workoutId) {
-  //     // const exercises: ExerciseResponse[] = await getExercisesByWorkout(workoutId);
-  //     setExpandedRows((prev) => {
-  //       if (prev.includes(workoutId)) {
-  //         return prev.filter((id) => id !== workoutId);
-  //       } else {
-  //         return [...prev, workoutId];
-  //       }
-  //     });
-  //   }
-  // };
-
-  // const renderExercises = (workoutId: string): JSX.Element => {
-  //   const exercises = expandedRows.includes(workoutId)
-  //     ? getExercisesByWorkout(workoutId)
-  //     : [];
-  //   return (
-  //     <ul>
-  //       {exercises.map((exercise) => (
-  //         <li key={exercise._links.self.href}>{exercise.name}</li>
-  //       ))}
-  //     </ul>
-  //   );
-  // };
+  const handleRowClick = (id: string) => {
+    setExpandedRows((prev) => {
+      if (prev.includes(id)) {
+        return prev.filter((rowId) => rowId !== id);
+      } else {
+        return [...prev, id];
+      }
+    });
+  };
 
   const workoutColumns: GridColDef[] = [
     { field: "name", headerName: "Name", width: 200 },
     { field: "type", headerName: "Type", width: 200 },
+    {
+      field: "expand",
+      headerName: "Show Exercises",
+      width: 200,
+      headerAlign: "center",
+      renderCell: (params) => (
+        <Box
+          display="flex"
+          justifyContent="center"
+          // alignItems="center"
+          height="100%"
+        >
+          <Button onClick={() => handleRowClick(params.id as string)}>
+            {expandedRows.includes(params.id as string) ? "Collapse" : "Expand"}
+          </Button>
+        </Box>
+      ),
+    },
   ];
+
+  // const renderExpandedRow = (id: string) => {
+  //   if (expandedRows.includes(id)) {
+  //     return (
+  //       <div style={{ padding: "10px", backgroundColor: "#f5f5f5" }}>
+  //         <strong>Expanded Content for {id}</strong>
+  //         <ul>
+  //           <li>Exercise 1</li>
+  //           <li>Exercise 2</li>
+  //           <li>Exercise 3</li>
+  //         </ul>
+  //       </div>
+  //     );
+  //   }
+  //   return null;
+  // };
 
   if (!isSuccess) {
     return <span>Loading...</span>;
@@ -68,6 +86,16 @@ function Workoutlist() {
           slots={{ toolbar: GridToolbar }}
           checkboxSelection
           disableRowSelectionOnClick
+          // components={{
+          //   Row: (props: GridRowParams) => {
+          //     return (
+          //       <>
+          //         <div {...props} />
+          //         {renderExpandedRow(props.row._links.self.href as string)}
+          //       </>
+          //     );
+          //   },
+          // }}
         />
       </>
     );
