@@ -2,6 +2,8 @@ package com.project.workout.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,6 +22,7 @@ public class AppUser {
 	@Column(nullable=false, updatable=false)
 	private String username;
 	
+	@JsonIgnore
 	@Column(nullable=false)
 	private String password;
 	

@@ -2,11 +2,11 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useState } from "react";
-import { Exercise } from "../types";
+import { Exercise } from "../../types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addExercise } from "../api/exerciseapi";
-import ExerciseDialogContent from "./ExerciseDialogContent";
+import { addExercise } from "../../api/exerciseapi";
 import Button from "@mui/material/Button";
+import ExerciseDialogContent from "./ExerciseDialogContent";
 
 function AddExercise() {
   const queryClient = useQueryClient();

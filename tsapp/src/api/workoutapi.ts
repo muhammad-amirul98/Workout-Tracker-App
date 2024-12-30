@@ -18,6 +18,7 @@ export const getWorkouts = async (): Promise<WorkoutResponse[]> => {
     `${import.meta.env.VITE_API_URL}/api/workouts`,
     getAxiosConfig()
   );
+  // console.log(response.data);
   return response.data._embedded.workouts;
 };
 

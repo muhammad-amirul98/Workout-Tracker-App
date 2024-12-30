@@ -1,7 +1,7 @@
 import { describe, test, expect } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
-import Exerciselist from "./components/Exerciselist";
+import Exerciselist from "./components/exercises/Exerciselist";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import userEvent from "@testing-library/user-event";
 

@@ -1,4 +1,4 @@
-import { Exercise } from "../types";
+import { Exercise } from "../../types";
 import DialogContent from "@mui/material/DialogContent";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";

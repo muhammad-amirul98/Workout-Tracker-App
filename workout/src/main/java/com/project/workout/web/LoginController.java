@@ -1,5 +1,7 @@
 package com.project.workout.web;
 
+import java.util.List;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,8 +30,13 @@ public class LoginController {
 					credentials.username(), credentials.password());
 			Authentication auth = authenticationManager.authenticate(creds);
 			
+			//Extract roles from authenticated user
+			List<String> roles = auth.getAuthorities().stream()
+					.map(authority -> authority.getAuthority().replace("ROLE_", ""))
+					.toList();
+			
 			//Generate Token
-			String jwts = jwtService.getToken(auth.getName());
+			String jwts = jwtService.getToken(auth.getName(), roles);
 			
 			//Build response with the generated token
 			return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION,

@@ -13,11 +13,8 @@ const getAxiosConfig = (): AxiosRequestConfig => {
   };
 };
 
-export const getExercises = async (): Promise<ExerciseResponse[]> => {
-  const response = await axios.get(
-    `${import.meta.env.VITE_API_URL}/api/exercises`,
-    getAxiosConfig()
-  );
+export const getExercises = async (id: string): Promise<ExerciseResponse[]> => {
+  const response = await axios.get(`${id}/exercise`, getAxiosConfig());
   return response.data._embedded.exercises;
 };
 

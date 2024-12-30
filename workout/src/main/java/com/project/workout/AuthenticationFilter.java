@@ -1,8 +1,11 @@
 package com.project.workout;
 
+import java.util.List;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -27,12 +30,17 @@ public class AuthenticationFilter extends OncePerRequestFilter{
 			FilterChain filterChain) throws ServletException, java.io.IOException {
 		//Get token from authorization header
 		String jws = request.getHeader(HttpHeaders.AUTHORIZATION);
-		if (jws != null) {
+		if (jws != null && jws.startsWith("Bearer ")) {
 			//Verify token and get user
 			String user = jwtService.getAuthUser(request);
+			//get roles
+			List<String> roles = jwtService.getRolesFromToken(jws);
+			List<SimpleGrantedAuthority> authorities = roles.stream()
+					.map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+					.toList();
 			//Authenticate
 			Authentication authentication = new UsernamePasswordAuthenticationToken(user, null,
-					java.util.Collections.emptyList());
+					authorities);
 			
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 		}

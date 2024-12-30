@@ -1,7 +1,7 @@
 // import { ExerciseResponse } from "../types";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { deleteExercise, getExercises } from "../api/exerciseapi";
+import { deleteExercise, getExercises } from "../../api/exerciseapi";
 import {
   DataGrid,
   GridColDef,
@@ -17,7 +17,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Stack from "@mui/material/Stack";
 // import { ExerciseResponse } from "../types";
 
-function Exerciselist() {
+function Exerciselist({ workoutId }: { workoutId: string }) {
   const [open, setOpen] = useState(false);
 
   const [updateOpen, setUpdateOpen] = useState(false);
@@ -28,8 +28,8 @@ function Exerciselist() {
   const queryClient = useQueryClient();
 
   const { data, error, isSuccess } = useQuery({
-    queryKey: ["exercises"],
-    queryFn: getExercises,
+    queryKey: ["exercises", workoutId],
+    queryFn: () => getExercises(workoutId),
   });
 
   const columns: GridColDef[] = [

@@ -30,8 +30,9 @@ public class Workout {
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="workout")
 	private List<Exercise> exercise;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="appuser_id")
+	@JsonIgnore
 	private AppUser user;
 	
 	
@@ -54,6 +55,15 @@ public class Workout {
 		this.name = name;
 		this.type = type;
 	}
+	
+	
+
+	public Workout(String name, String type, AppUser user) {
+		super();
+		this.name = name;
+		this.type = type;
+		this.user = user;
+	}
 
 	public String getName() {
 		return name;
@@ -74,6 +84,20 @@ public class Workout {
 	public Long getWorkoutId() {
 		return workoutId;
 	}
+
+	public List<Exercise> getExercise() {
+		return exercise;
+	}
+
+	public void setExercise(List<Exercise> exercise) {
+		this.exercise = exercise;
+	}
+
+	public AppUser getUser() {
+		return user;
+	}
+	
+	
 	
 	
 

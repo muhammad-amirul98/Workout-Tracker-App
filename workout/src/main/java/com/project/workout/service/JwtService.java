@@ -2,10 +2,12 @@ package com.project.workout.service;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -21,14 +23,25 @@ public class JwtService {
 	static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 	
 	//Generate signed JWT token
-	public String getToken(String username) {
+	public String getToken(String username, List<String> roles) {
 		String token = Jwts.builder()
 				.setSubject(username)
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
+				.claim("roles", roles)
 				.signWith(key)
 				.compact();
-		
+	
 		return token;
+	}
+	
+	public List<String> getRolesFromToken(String token) {
+		Claims claims = Jwts.parserBuilder()
+				.setSigningKey(key)
+				.build()
+				.parseClaimsJws(token.replace(PREFIX, ""))
+				.getBody();
+		
+		return claims.get("roles", List.class);
 	}
 	
 	//Get a token from request Authorization header, verify token and get username
@@ -48,5 +61,4 @@ public class JwtService {
 		}
 		return null;
 	}
-	
 }

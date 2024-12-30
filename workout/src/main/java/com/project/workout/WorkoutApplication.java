@@ -40,15 +40,20 @@ public class WorkoutApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		
 //		user: user, pass: user	
-		appUserRepository.save(new AppUser("user",
-				"$2a$12$A8erCOL2GtJ8.qZlnXFYjuCLBjU34z6Och.oXnQ8CowweXmG87c/G","USER", 
-				"user@gmail.com"));
-//		user: admin, pass:admin
-		appUserRepository.save(new AppUser("admin",
-				"$2a$12$AjGhq1O2CW9Qqzysx.4xSupPZdJ/Bt94Pjm2af8w22UDC0wFhKcFu","ADMIN","admin@gmail.com"));
+		AppUser user = new AppUser("user",
+				"$2a$12$A8erCOL2GtJ8.qZlnXFYjuCLBjU34z6Och.oXnQ8CowweXmG87c/G",
+				"USER", 
+				"user@gmail.com");
+		appUserRepository.save(user);
 		
-		Workout workout1 = new Workout("My Workout", "Push");
-		Workout workout2 = new Workout("My Second Workout", "Pull");
+//		user: admin, pass: admin	
+		AppUser admin = new AppUser("admin",
+				"$2a$12$AjGhq1O2CW9Qqzysx.4xSupPZdJ/Bt94Pjm2af8w22UDC0wFhKcFu",
+				"ADMIN","admin@gmail.com");
+		appUserRepository.save(admin);
+		
+		Workout workout1 = new Workout("Push Workout", "Push", user);
+		Workout workout2 = new Workout("Pull Workout", "Pull", admin);
 		this.workoutRepository.saveAll(Arrays.asList(workout1, workout2));
 		
 		
