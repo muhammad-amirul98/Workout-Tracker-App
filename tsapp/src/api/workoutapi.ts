@@ -1,10 +1,9 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { ExerciseResponse, WorkoutResponse } from "../types";
+import { WorkoutsResponse } from "../types";
 // import { getWorkoutIdFromHref } from "../utils/utils";
 
 const getAxiosConfig = (): AxiosRequestConfig => {
   const token = sessionStorage.getItem("jwt");
-
   return {
     headers: {
       Authorization: token,
@@ -13,22 +12,15 @@ const getAxiosConfig = (): AxiosRequestConfig => {
   };
 };
 
-export const getWorkouts = async (): Promise<WorkoutResponse[]> => {
+export const getWorkoutsByUser = async (): Promise<WorkoutsResponse> => {
   const response = await axios.get(
-    `${import.meta.env.VITE_API_URL}/api/workouts`,
+    `${import.meta.env.VITE_API_URL}/users/me/workouts`,
     getAxiosConfig()
   );
-  // console.log(response.data);
-  return response.data._embedded.workouts;
+  console.log("getWorkoutsByUser: " + response.data);
+  return response.data;
 };
 
-export const getExercisesByWorkout = async (
-  workoutId: string
-): Promise<ExerciseResponse[]> => {
-  // const workoutId = getWorkoutIdFromHref(workoutLink);
-  const response = await axios.get(
-    `${import.meta.env.VITE_API_URL}/api/workouts/${workoutId}/exercise`,
-    getAxiosConfig()
-  );
-  return response.data._embedded.exercises || [];
-};
+// export const addWorkoutByUser = async (): Promise<WorkoutEntry> => {
+//   const response = await axios.post()
+// }

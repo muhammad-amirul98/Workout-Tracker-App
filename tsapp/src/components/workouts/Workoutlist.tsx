@@ -1,98 +1,45 @@
-// import { useQueryClient } from "@tanstack/react-query";
-import { getWorkouts } from "../../api/workoutapi";
-import { Box, Button, Stack } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
-import { GridColDef } from "@mui/x-data-grid";
-import { useQuery } from "@tanstack/react-query";
-import { GridToolbar } from "@mui/x-data-grid";
 import { useState } from "react";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { Collapse, Typography } from "@mui/material";
+// import { getWorkouts } from "../../api/workoutapi";
+
+import { useQuery } from "@tanstack/react-query";
+import { getWorkoutsByUser } from "../../api/workoutapi";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Collapse,
+  Button,
+  Paper,
+} from "@mui/material";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+import * as React from "react";
+import "../../styles/styles.css";
 
 function Workoutlist() {
-  // const queryClient = useQueryClient();
   const { data, error, isSuccess } = useQuery({
     queryKey: ["workouts"],
-    queryFn: getWorkouts,
+    queryFn: getWorkoutsByUser,
   });
 
-  const [expandedRows, setExpandedRows] = useState<string[]>([]);
+  const [collapsed, setCollapsed] = useState<Set<number>>(new Set());
 
-  //useEffect function to see updated expandedRows value when it changes
-  // useEffect(() => {
-  //   console.log("Expanded Rows:", expandedRows);
-  // }, [expandedRows]);
-
-  const handleRowClick = (id: string) => {
-    setExpandedRows((prev) => {
-      if (prev.includes(id)) {
-        return prev.filter((rowId) => rowId !== id);
+  const toggleCollapse = (workoutId: number) => {
+    setCollapsed((prev) => {
+      const newCollapsed = new Set(prev);
+      if (newCollapsed.has(workoutId)) {
+        newCollapsed.delete(workoutId);
       } else {
-        return [...prev, id];
+        newCollapsed.add(workoutId);
       }
+      return newCollapsed;
     });
-  };
-
-  const workoutColumns: GridColDef[] = [
-    {
-      field: "expand",
-      headerName: "Show Exercises",
-      width: 200,
-      headerAlign: "center",
-      renderCell: (params) => {
-        // console.log(params);
-        return (
-          <Box
-            display="flex"
-            justifyContent="center"
-            // alignItems="center"
-            height="100%"
-          >
-            <Button onClick={() => handleRowClick(params.id as string)}>
-              {expandedRows.includes(params.id as string) ? (
-                <KeyboardArrowUpIcon />
-              ) : (
-                <KeyboardArrowDownIcon />
-              )}
-            </Button>
-          </Box>
-        );
-      },
-    },
-    { field: "name", headerName: "Name", width: 200 },
-    { field: "type", headerName: "Type", width: 200 },
-  ];
-
-  // const renderExpandedRow = (id: string) => {
-  //   if (expandedRows.includes(id)) {
-  //     return (
-  //       <div style={{ padding: "10px", backgroundColor: "#f5f5f5" }}>
-  //         <strong>Expanded Content for {id}</strong>
-  //         <ul>
-  //           <li>Exercise 1</li>
-  //           <li>Exercise 2</li>
-  //           <li>Exercise 3</li>
-  //         </ul>
-  //       </div>
-  //     );
-  //   }
-  //   return null;
-  // };
-
-  const renderExpandedRow = (id: string) => {
-    return (
-      <Collapse in={expandedRows.includes(id)} timeout="auto" unmountOnExit>
-        <Box sx={{ margin: 1 }}>
-          <Typography variant="body2" component="div">
-            Exercise: Push-up
-          </Typography>
-          <Typography variant="body2" component="div">
-            Reps: 20
-          </Typography>
-        </Box>
-      </Collapse>
-    );
   };
 
   if (!isSuccess) {
@@ -101,26 +48,80 @@ function Workoutlist() {
     return <span>Error when fetching workouts</span>;
   } else {
     return (
-      <>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-        ></Stack>
-        <DataGrid
-          rows={data}
-          columns={workoutColumns}
-          getRowId={(row) => row._links.self.href}
-          slots={{ toolbar: GridToolbar }}
-          // checkboxSelection
-          disableRowSelectionOnClick
-        />
-        {data.map((row) => (
-          <div key={row._links.self.href}>
-            {renderExpandedRow(row._links.self.href)}
-          </div>
-        ))}
-      </>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Workout Name</TableCell>
+              <TableCell>Type</TableCell>
+              <TableCell>Show Exercises</TableCell>
+              <TableCell>Edit</TableCell>
+              <TableCell>Delete</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.map((workout) => (
+              <React.Fragment key={workout.workoutId}>
+                <TableRow>
+                  <TableCell>{workout.name}</TableCell>
+                  <TableCell>{workout.type}</TableCell>
+                  <TableCell>
+                    <Button onClick={() => toggleCollapse(workout.workoutId)}>
+                      {collapsed.has(workout.workoutId) ? (
+                        <ArrowUpwardIcon />
+                      ) : (
+                        <ArrowDownwardIcon />
+                      )}
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <EditIcon />
+                  </TableCell>
+                  <TableCell>
+                    <DeleteIcon />
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell colSpan={5}>
+                    <Collapse in={collapsed.has(workout.workoutId)}>
+                      <Table>
+                        <TableHead>
+                          <TableRow>
+                            <TableCell>Exercise Name</TableCell>
+                            <TableCell>Body Part</TableCell>
+                            <TableCell>Sets</TableCell>
+                            <TableCell>Reps</TableCell>
+                            <TableCell>Weight</TableCell>
+                            <TableCell>Edit</TableCell>
+                            <TableCell>Delete</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {workout.exercise.map((exercise) => (
+                            <TableRow key={exercise.id}>
+                              <TableCell>{exercise.name}</TableCell>
+                              <TableCell>{exercise.bodyPart}</TableCell>
+                              <TableCell>{exercise.sets}</TableCell>
+                              <TableCell>{exercise.reps}</TableCell>
+                              <TableCell>{exercise.weight}</TableCell>
+                              <TableCell>
+                                <EditIcon />
+                              </TableCell>
+                              <TableCell>
+                                <DeleteIcon />
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </Collapse>
+                  </TableCell>
+                </TableRow>
+              </React.Fragment>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     );
   }
 }

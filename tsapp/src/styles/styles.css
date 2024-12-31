@@ -1,0 +1,9 @@
+.table-head {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.table-cell {
+  font-weight: bold;
+  padding: 16px;
+}

@@ -54,7 +54,9 @@ public class WorkoutApplication implements CommandLineRunner {
 		
 		Workout workout1 = new Workout("Push Workout", "Push", user);
 		Workout workout2 = new Workout("Pull Workout", "Pull", admin);
-		this.workoutRepository.saveAll(Arrays.asList(workout1, workout2));
+		Workout workout3 = new Workout("Pull Workout", "Pull", admin);
+		Workout workout4 = new Workout("Pull Workout", "Pull", admin);
+		this.workoutRepository.saveAll(Arrays.asList(workout1, workout2, workout3, workout4));
 		
 		
 		this.exerciseRepository.save(new Exercise("Tricep Pulldown", "Triceps", 3, 8, 12.5, workout1));

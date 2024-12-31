@@ -1,5 +1,7 @@
 package com.project.workout.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +28,7 @@ public class Exercise {
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="workout_id")
+	@JsonIgnore
 	private Workout workout;
 	
 //	@ManyToMany(mappedBy="exercises")
@@ -107,12 +110,4 @@ public class Exercise {
 	public void setWorkout(Workout workout) {
 		this.workout = workout;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 }

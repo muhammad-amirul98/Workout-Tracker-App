@@ -26,9 +26,9 @@ public class Workout {
 	
 	private String type;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="workout")
-	private List<Exercise> exercise;
+	private List<Exercise> exercises;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="appuser_id")
@@ -85,12 +85,12 @@ public class Workout {
 		return workoutId;
 	}
 
-	public List<Exercise> getExercise() {
-		return exercise;
+	public List<Exercise> getExercises() {
+		return exercises;
 	}
 
-	public void setExercise(List<Exercise> exercise) {
-		this.exercise = exercise;
+	public void setExercises(List<Exercise> exercises) {
+		this.exercises = exercises;
 	}
 
 	public AppUser getUser() {

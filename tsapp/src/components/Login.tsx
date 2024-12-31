@@ -8,7 +8,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 // import Workoutlist from "./Workoutlist";
-import Workoutlistcopy from "./workouts/Workoutlist copy";
+import Workoutlistcopy from "./workouts/Workoutlist";
 
 type User = {
   username: string;
