@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { WorkoutsResponse } from "../types";
+import { WorkoutResponse, Workout } from "../types";
 // import { getWorkoutIdFromHref } from "../utils/utils";
 
 const getAxiosConfig = (): AxiosRequestConfig => {
@@ -12,15 +12,21 @@ const getAxiosConfig = (): AxiosRequestConfig => {
   };
 };
 
-export const getWorkoutsByUser = async (): Promise<WorkoutsResponse> => {
+export const getWorkoutsByUser = async (): Promise<WorkoutResponse> => {
   const response = await axios.get(
     `${import.meta.env.VITE_API_URL}/users/me/workouts`,
     getAxiosConfig()
   );
-  console.log("getWorkoutsByUser: " + response.data);
   return response.data;
 };
 
-// export const addWorkoutByUser = async (): Promise<WorkoutEntry> => {
-//   const response = await axios.post()
-// }
+export const addWorkout = async (workout: Workout): Promise<Workout> => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { workoutId, ...workoutData } = workout;
+  const response = await axios.post(
+    `${import.meta.env.VITE_API_URL}/users/me/workouts`,
+    workoutData,
+    getAxiosConfig()
+  );
+  return response.data;
+};

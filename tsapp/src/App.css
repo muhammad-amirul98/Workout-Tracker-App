@@ -46,3 +46,39 @@
   font-weight: 400; /* Matches the default Typography font weight */
   text-transform: none; /* Keeps the text case consistent with Typography */
 }
+
+.appBar {
+  background-color: #000000;
+}
+
+.logoText {
+  color: #3a7bff !important;
+  font-family: "Poppins", sans-serif !important;
+}
+
+.buttonText {
+  color: #3a7bff !important;
+  font-family: "Poppins", sans-serif !important;
+}
+
+.buttonHover:hover {
+  background-color: #1e1e1e !important;
+  color: #4cafff !important;
+}
+
+.iconButtonHover:hover {
+  background-color: #1e1e1e !important;
+}
+
+.signUp {
+  font-size: 1.25rem; /* Similar to the default font size of h6 */
+  font-weight: 500; /* Default font weight for h6 */
+  color: #3a7bff; /* Set color for button text */
+  font-family: "Poppins", sans-serif;
+  text-transform: none; /* Keep the button text as-is (not uppercased) */
+}
+
+.signUp:hover {
+  background-color: #1e1e1e;
+  color: #4cafff; /* Color change on hover */
+}

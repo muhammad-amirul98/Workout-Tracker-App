@@ -12,12 +12,20 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import SignUp from "./components/SignUp";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { styled } from "@mui/system";
+import IconButton from "@mui/material/IconButton";
+import SearchIcon from "@mui/icons-material/Search";
 
 const queryClient = new QueryClient();
 
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const CustomToolbar = styled(Toolbar)({
+    display: "flex",
+    justifyContent: "space-between",
+  });
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -28,42 +36,49 @@ function App() {
   };
 
   return (
-    <Container maxWidth="xl">
+    <Container
+      maxWidth="xl"
+      sx={{
+        backgroundColor: "#000000", // Background color for the entire page
+        minHeight: "100vh", // Ensure the background covers the full height of the viewport
+      }}
+    >
       <CssBaseline />
-      <AppBar position="static">
-        <Toolbar>
+      <AppBar position="static" sx={{ backgroundColor: "#000000" }}>
+        <CustomToolbar sx={{ color: "#3A7BFF" }}>
           <Box sx={{ flexGrow: 1 }}>
-            <Typography variant="h6">Workout Tracker</Typography>
+            <Typography variant="h6" className="logoText">
+              Workout Tracker
+            </Typography>
           </Box>
-          {location.pathname !== "/signup" && !isLoggedIn && (
-            <Button
-              onClick={() => {
-                navigate("/signup");
-              }}
-              color="inherit"
-              sx={{
-                fontSize: "1.25rem",
-                fontWeight: 400,
-                textTransform: "none",
-              }}
-            >
-              Sign Up
-            </Button>
-          )}
-          {isLoggedIn && (
-            <Button
-              onClick={logOut}
-              color="inherit"
-              sx={{
-                fontSize: "1.25rem",
-                fontWeight: 400,
-                textTransform: "none",
-              }}
-            >
-              Log Out
-            </Button>
-          )}
-        </Toolbar>
+          <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
+            <Button className="buttonText buttonHover">About</Button>
+            <Button className="buttonText buttonHover">Features</Button>
+            <Button className="buttonText buttonHover">Contact</Button>
+            <IconButton className="buttonText iconButtonHover">
+              <SearchIcon />
+            </IconButton>
+            {location.pathname !== "/signup" && !isLoggedIn && (
+              <Button
+                onClick={() => {
+                  navigate("/signup");
+                }}
+                className="buttonText buttonHover"
+              >
+                Sign Up
+              </Button>
+            )}
+            {isLoggedIn && (
+              <Button
+                onClick={logOut}
+                color="inherit"
+                className="buttonText buttonHover"
+              >
+                Log Out
+              </Button>
+            )}
+          </div>
+        </CustomToolbar>
       </AppBar>
       <QueryClientProvider client={queryClient}>
         <Routes>

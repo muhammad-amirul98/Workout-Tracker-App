@@ -3,12 +3,11 @@ import axios from "axios";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-// import Exerciselist from "./Exerciselist";
 import Snackbar from "@mui/material/Snackbar";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
-// import Workoutlist from "./Workoutlist";
-import Workoutlistcopy from "./workouts/Workoutlist";
+import Workoutlist from "./workouts/Workoutlist";
+import "../styles/styles.css";
+import { useNavigate } from "react-router-dom";
 
 type User = {
   username: string;
@@ -21,6 +20,7 @@ type LoginProps = {
 };
 
 function Login({ isAuthenticated, onLogin }: LoginProps) {
+  const navigate = useNavigate();
   const [user, setUser] = useState<User>({
     username: "",
     password: "",
@@ -49,9 +49,7 @@ function Login({ isAuthenticated, onLogin }: LoginProps) {
   };
 
   if (isAuthenticated) {
-    // return <Exerciselist />;
-    // return <Workoutlist />;
-    return <Workoutlistcopy />;
+    return <Workoutlist />;
   } else {
     return (
       // <Stack spacing={2} alignItems="center" mt={2}>
@@ -80,12 +78,14 @@ function Login({ isAuthenticated, onLogin }: LoginProps) {
               name="username"
               label="Username"
               onChange={handleChange}
+              className="custom-textfield"
             />
             <TextField
               type="password"
               name="password"
               label="Password"
               onChange={handleChange}
+              className="custom-textfield"
             />
             <Button variant="outlined" color="primary" type="submit">
               Login
@@ -98,7 +98,7 @@ function Login({ isAuthenticated, onLogin }: LoginProps) {
             />
           </Stack>
         </form>
-        <Stack
+        {/* <Stack
           alignItems="center"
           sx={{
             border: "1px solid #ccc",
@@ -107,14 +107,27 @@ function Login({ isAuthenticated, onLogin }: LoginProps) {
             margin: "auto",
             width: "fit-content",
           }}
+        > */}
+        <Typography
+          alignItems="center"
+          sx={{
+            border: "1px solid #3a7bff",
+            borderRadius: "8px",
+            padding: 2,
+            margin: "auto",
+            width: "fit-content",
+            color: "#3a7bff",
+          }}
         >
-          <Typography>
-            Don't have an account?{" "}
-            <Link href="/signup" underline="none">
-              Sign Up
-            </Link>
-          </Typography>
-        </Stack>
+          Don't have an account?{" "}
+          <Button
+            onClick={() => navigate("/signup")}
+            className="buttonText buttonHover"
+          >
+            Sign Up
+          </Button>
+        </Typography>
+        {/* </Stack> */}
       </>
     );
   }

@@ -96,6 +96,12 @@ public class Workout {
 	public AppUser getUser() {
 		return user;
 	}
+
+	public void setUser(AppUser user) {
+		this.user = user;
+	}
+	
+	
 	
 	
 	

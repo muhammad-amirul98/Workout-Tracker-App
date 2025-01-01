@@ -51,7 +51,7 @@
 //////////////////////////////////////////////////////////////
 
 // Define the structure for Exercise
-export type Exercise1 = {
+export type Exercise = {
   id: number;
   name: string;
   bodyPart: string;
@@ -65,13 +65,14 @@ export type Workout = {
   workoutId: number;
   name: string;
   type: string;
-  exercise: Exercise1[];
+  exercises: Exercise[];
 };
 
 // The type for an array of workouts
-export type WorkoutsResponse = Workout[];
+export type WorkoutResponse = Workout[];
 
-export type WorkoutEntry = {
-  name: string;
-  type: string;
-};
+// export type WorkoutEntry = {
+//   name: string;
+//   type: string;
+//   exercises: Exercise[];
+// };

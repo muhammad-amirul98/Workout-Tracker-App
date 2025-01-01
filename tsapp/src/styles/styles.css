@@ -7,3 +7,39 @@
   font-weight: bold;
   padding: 16px;
 }
+
+/* textfield for login and signup */
+.custom-textfield .MuiInputBase-input {
+  color: #3a7bff; /* Text color */
+}
+
+.custom-textfield .MuiFormLabel-root {
+  color: #3a7bff; /* Label color */
+}
+
+.custom-textfield .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-color: #3a7bff; /* Default border color */
+  border-width: 1px; /* Set border width */
+}
+
+.custom-textfield
+  .MuiOutlinedInput-root:hover
+  .MuiOutlinedInput-notchedOutline {
+  border-color: #3a7bff; /* Hover border color */
+}
+
+.custom-textfield
+  .MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline {
+  border-color: #3a7bff; /* Focused border color */
+}
+
+.buttonText {
+  color: #3a7bff !important;
+  font-family: "Poppins", sans-serif !important;
+}
+
+.buttonHover:hover {
+  background-color: #1e1e1e !important;
+  color: #4cafff !important;
+}
