@@ -1,46 +1,44 @@
-import { useState } from "react";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogTitle from "@mui/material/DialogTitle";
-import { ExerciseResponse, Exercise, ExerciseEntry } from "../../types";
+import Tooltip from "@mui/material/Tooltip";
+import { Exercise } from "../../types";
 import ExerciseDialogContent from "./ExerciseDialogContent";
-import { useQueryClient } from "@tanstack/react-query";
-import { updateExercise } from "../../api/exerciseapi";
-import { useMutation } from "@tanstack/react-query";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
-import Tooltip from "@mui/material/Tooltip";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import { useState } from "react";
+import DialogActions from "@mui/material/DialogActions";
+import Button from "@mui/material/Button";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { updateExercise } from "../../api/exerciseapi";
 
-type FormProps = {
-  exercisedata: ExerciseResponse;
+type Props = {
+  exerciseData: Exercise;
   onExerciseUpdated: () => void;
 };
-
-function EditExercise({ exercisedata, onExerciseUpdated }: FormProps) {
+function UpdateExercise({ exerciseData, onExerciseUpdated }: Props) {
   const [open, setOpen] = useState(false);
-
   const [exercise, setExercise] = useState<Exercise>({
+    id: 0,
     name: "",
     bodyPart: "",
     sets: 0,
     reps: 0,
     weight: 0,
   });
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleClickOpen = () => {
     setExercise({
-      name: exercisedata.name,
-      bodyPart: exercisedata.bodyPart,
-      sets: exercisedata.sets,
-      reps: exercisedata.reps,
-      weight: exercisedata.weight,
+      id: exerciseData.id,
+      name: exerciseData.name,
+      bodyPart: exerciseData.bodyPart,
+      sets: exerciseData.sets,
+      reps: exerciseData.reps,
+      weight: exerciseData.weight,
     });
     setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
   };
 
   const queryClient = useQueryClient();
@@ -48,7 +46,7 @@ function EditExercise({ exercisedata, onExerciseUpdated }: FormProps) {
   const { mutate } = useMutation({
     mutationFn: updateExercise,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["exercises"] });
+      queryClient.invalidateQueries({ queryKey: ["workouts"] });
       onExerciseUpdated();
     },
     onError: (err) => {
@@ -57,11 +55,9 @@ function EditExercise({ exercisedata, onExerciseUpdated }: FormProps) {
   });
 
   const handleSave = () => {
-    const url = exercisedata._links.self.href;
-    const exerciseEntry: ExerciseEntry = { exercise, url };
-    mutate(exerciseEntry);
-    setExercise({ name: "", bodyPart: "", sets: 0, reps: 0, weight: 0 });
-    setOpen(false);
+    mutate(exercise);
+    setExercise({ id: 0, name: "", bodyPart: "", sets: 0, reps: 0, weight: 0 });
+    handleClose();
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,4 +87,4 @@ function EditExercise({ exercisedata, onExerciseUpdated }: FormProps) {
   );
 }
 
-export default EditExercise;
+export default UpdateExercise;

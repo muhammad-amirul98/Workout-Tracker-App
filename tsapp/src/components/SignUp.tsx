@@ -5,6 +5,7 @@ import Stack from "@mui/material/Stack";
 import { Snackbar, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
+import "../styles/styles.css";
 
 type User = {
   username: string;
@@ -81,6 +82,7 @@ function SignUp() {
             name="username"
             value={userData.username}
             onChange={handleChange}
+            className="custom-textfield"
           ></TextField>
           <TextField
             label="Password"
@@ -88,6 +90,7 @@ function SignUp() {
             type="password"
             value={userData.password}
             onChange={handleChange}
+            className="custom-textfield"
           ></TextField>
           <TextField
             label="Confirm Password"
@@ -96,6 +99,7 @@ function SignUp() {
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
             onBlur={validateConfirmPassword}
+            className="custom-textfield"
           ></TextField>
           {passwordError && ( // Render error message if it exists
             <Typography variant="body2" color="error">
@@ -108,6 +112,7 @@ function SignUp() {
             type="email"
             value={userData.email}
             onChange={handleChange}
+            className="custom-textfield"
           ></TextField>
           <Button
             type="submit"
@@ -119,7 +124,7 @@ function SignUp() {
         </Stack>
       </form>
       <br />
-      <Stack
+      {/* <Stack
         alignItems="center"
         mt={1}
         sx={{
@@ -129,14 +134,23 @@ function SignUp() {
           margin: "auto",
           width: "fit-content",
         }}
+      > */}
+      <Typography
+        sx={{
+          border: "1px solid #3a7bff",
+          borderRadius: "8px",
+          padding: 2,
+          margin: "auto",
+          width: "fit-content",
+          color: "#3a7bff",
+        }}
       >
-        <Typography>
-          Have an account?{" "}
-          <Link href="/" underline="none">
-            Log in
-          </Link>
-        </Typography>
-      </Stack>
+        Have an account?{" "}
+        <Link href="/" underline="none">
+          Log in
+        </Link>
+      </Typography>
+      {/* </Stack> */}
       <Snackbar
         open={open}
         autoHideDuration={2000}

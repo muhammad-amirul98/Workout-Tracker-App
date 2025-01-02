@@ -109,7 +109,6 @@ function Login({ isAuthenticated, onLogin }: LoginProps) {
           }}
         > */}
         <Typography
-          alignItems="center"
           sx={{
             border: "1px solid #3a7bff",
             borderRadius: "8px",

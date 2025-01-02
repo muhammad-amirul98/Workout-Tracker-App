@@ -34,7 +34,6 @@ function AddWorkout() {
     mutationFn: addWorkout,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["workouts"] });
-      console.log("hello");
     },
     onError: (err) => {
       console.error(err);
@@ -49,7 +48,9 @@ function AddWorkout() {
 
   return (
     <>
-      <Button onClick={handleClickOpen}>Add Workout</Button>
+      <div style={{ marginLeft: "7px" }}>
+        <Button onClick={handleClickOpen}>Add Workout</Button>
+      </div>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add Workout</DialogTitle>
         <WorkoutDialogContent workout={workout} handleChange={handleChange} />

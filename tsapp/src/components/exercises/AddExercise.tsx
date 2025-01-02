@@ -1,69 +1,90 @@
-// import Dialog from "@mui/material/Dialog";
-// import DialogActions from "@mui/material/DialogActions";
-// import DialogTitle from "@mui/material/DialogTitle";
-// import { useState } from "react";
-// import { Exercise } from "../../types";
-// import { useMutation, useQueryClient } from "@tanstack/react-query";
-// import { addExercise } from "../../api/exerciseapi";
-// import Button from "@mui/material/Button";
-// import ExerciseDialogContent from "./ExerciseDialogContent";
+import { useState } from "react";
+import { Exercise } from "../../types";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
+import ExerciseDialogContent from "./ExerciseDialogContent";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addExercise } from "../../api/exerciseapi";
 
-// function AddExercise() {
-//   const queryClient = useQueryClient();
+type Props = {
+  workoutId: number;
+};
 
-//   const { mutate } = useMutation({
-//     mutationFn: addExercise,
-//     onSuccess: () => {
-//       queryClient.invalidateQueries({ queryKey: ["exercises"] });
-//     },
-//     onError: (err) => {
-//       console.error(err);
-//     },
-//   });
+function AddExercise({ workoutId }: Props) {
+  const queryClient = useQueryClient();
+  const [open, setOpen] = useState(false);
+  const [exercise, setExercise] = useState<Exercise>({
+    id: 0,
+    name: "",
+    bodyPart: "",
+    sets: 0,
+    reps: 0,
+    weight: 0,
+  });
 
-//   const handleSave = () => {
-//     mutate(exercise);
-//     setExercise({ name: "", bodyPart: "", sets: 0, reps: 0, weight: 0 });
-//     handleClose();
-//   };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-//   const [open, setOpen] = useState(false);
-//   const [exercise, setExercise] = useState<Exercise>({
-//     name: "",
-//     bodyPart: "",
-//     sets: 0,
-//     reps: 0,
-//     weight: 0,
-//   });
+  const handleClose = () => {
+    setExercise({
+      id: 0,
+      name: "",
+      bodyPart: "",
+      sets: 0,
+      reps: 0,
+      weight: 0,
+    });
+    setOpen(false);
+  };
 
-//   const handleClickOpen = () => {
-//     setOpen(true);
-//   };
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setExercise({ ...exercise, [event.target.name]: event.target.value });
+  };
 
-//   const handleClose = () => {
-//     setOpen(false);
-//   };
+  const { mutate } = useMutation({
+    mutationFn: ({
+      workoutId,
+      exercise,
+    }: {
+      workoutId: number;
+      exercise: Exercise;
+    }) => addExercise(workoutId, exercise),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["workouts"] });
+    },
+    onError: (err) => {
+      console.error("Add Exercise : " + err);
+    },
+  });
 
-//   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     setExercise({ ...exercise, [event.target.name]: event.target.value });
-//   };
+  const handleSave = () => {
+    mutate({ workoutId, exercise });
+    handleClose();
+  };
 
-//   return (
-//     <>
-//       <Button onClick={handleClickOpen}>New Exercise</Button>
-//       <Dialog open={open} onClose={handleClose}>
-//         <DialogTitle>New Exercise</DialogTitle>
-//         <ExerciseDialogContent
-//           exercise={exercise}
-//           handleChange={handleChange}
-//         />
-//         <DialogActions>
-//           <Button onClick={handleClose}>Cancel</Button>
-//           <Button onClick={handleSave}>Save</Button>
-//         </DialogActions>
-//       </Dialog>
-//     </>
-//   );
-// }
+  return (
+    <>
+      <>
+        <div style={{ marginLeft: "7px" }}>
+          <Button onClick={handleClickOpen}>Add Exercise</Button>
+        </div>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>Add Exercise</DialogTitle>
+          <ExerciseDialogContent
+            exercise={exercise}
+            handleChange={handleChange}
+          />
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleSave}>Save</Button>
+          </DialogActions>
+        </Dialog>
+      </>
+    </>
+  );
+}
 
-// export default AddExercise;
+export default AddExercise;

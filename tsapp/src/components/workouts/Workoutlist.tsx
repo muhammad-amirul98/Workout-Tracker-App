@@ -1,8 +1,6 @@
 import { useState } from "react";
-// import { getWorkouts } from "../../api/workoutapi";
-
-import { useQuery } from "@tanstack/react-query";
-import { getWorkoutsByUser } from "../../api/workoutapi";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { deleteWorkout, getWorkoutsByUser } from "../../api/workoutapi";
 import {
   Table,
   TableBody,
@@ -11,17 +9,23 @@ import {
   TableHead,
   TableRow,
   Collapse,
-  Button,
   Paper,
+  Snackbar,
 } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import { useMutation } from "@tanstack/react-query";
 import * as React from "react";
 import "../../styles/styles.css";
 import AddWorkout from "./AddWorkout";
+import UpdateWorkout from "./UpdateWorkout";
+import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import AddExercise from "../exercises/AddExercise";
+import UpdateExercise from "../exercises/UpdateExercise";
+import { deleteExercise } from "../../api/exerciseapi";
 
 function Workoutlist() {
   const { data, error, isSuccess } = useQuery({
@@ -30,12 +34,46 @@ function Workoutlist() {
   });
 
   const [collapsed, setCollapsed] = useState<Set<number>>(new Set());
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
 
-  // console.log(
-  //   "Exercises: ",
-  //   data?.map((workout) => workout.exercises)
-  // );
-  // console.log("Data ", data);
+  const onWorkoutUpdated = () => {
+    setOpen(true);
+    setMessage("Workout Updated Successfully");
+  };
+
+  const onWorkoutDeleted = () => {
+    setOpen(true);
+    setMessage("Workout Deleted Successfully");
+  };
+
+  const onExerciseUpdated = () => {
+    setOpen(true);
+    setMessage("Exercise Updated Successfully");
+  };
+
+  const onExerciseDeleted = () => {
+    setOpen(true);
+    setMessage("Exercise Deleted Successfully");
+  };
+
+  const queryClient = useQueryClient();
+
+  const { mutate: deleteWorkoutMutate } = useMutation({
+    mutationFn: deleteWorkout,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["workouts"] });
+      onWorkoutDeleted();
+    },
+  });
+
+  const { mutate: deleteExerciseMutate } = useMutation({
+    mutationFn: deleteExercise,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["workouts"] });
+      onExerciseDeleted();
+    },
+  });
 
   const toggleCollapse = (workoutId: number) => {
     setCollapsed((prev) => {
@@ -59,50 +97,82 @@ function Workoutlist() {
         <AddWorkout />
         <TableContainer component={Paper}>
           <Table>
-            <TableHead>
+            <TableHead sx={{ backgroundColor: "#1976d2" }}>
               <TableRow className="table-head">
-                <TableCell className="table-cell">Workout Name</TableCell>
-                <TableCell className="table-cell">Type</TableCell>
-                <TableCell className="table-cell">Show Exercises</TableCell>
-                <TableCell className="table-cell">Edit</TableCell>
-                <TableCell className="table-cell">Delete</TableCell>
+                <TableCell className="cellText">Workout Name</TableCell>
+                <TableCell className="cellText">Type</TableCell>
+                <TableCell className="cellText">Exercises</TableCell>
+                <TableCell className="cellText">Edit</TableCell>
+                <TableCell className="cellText">Delete</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {data.map((workout) => (
                 <React.Fragment key={workout.workoutId}>
                   <TableRow>
-                    <TableCell>{workout.name}</TableCell>
-                    <TableCell>{workout.type}</TableCell>
+                    <TableCell className="buttonText">{workout.name}</TableCell>
+                    <TableCell className="buttonText">{workout.type}</TableCell>
                     <TableCell>
                       <Button onClick={() => toggleCollapse(workout.workoutId)}>
                         {collapsed.has(workout.workoutId) ? (
-                          <ArrowUpwardIcon />
+                          <Tooltip title="Hide exercises">
+                            <ArrowUpwardIcon />
+                          </Tooltip>
                         ) : (
-                          <ArrowDownwardIcon />
+                          <Tooltip title="Show exercises">
+                            <ArrowDownwardIcon />
+                          </Tooltip>
                         )}
                       </Button>
                     </TableCell>
                     <TableCell>
-                      <EditIcon />
+                      <UpdateWorkout
+                        workoutData={workout}
+                        onWorkoutUpdated={onWorkoutUpdated}
+                      />
                     </TableCell>
                     <TableCell>
-                      <DeleteIcon />
+                      <Tooltip title="Delete workout">
+                        <IconButton
+                          onClick={() => {
+                            if (
+                              window.confirm(
+                                `Are you sure you want to delete ${workout.name}?`
+                              )
+                            ) {
+                              deleteWorkoutMutate(workout);
+                            }
+                          }}
+                          aria-label="delete"
+                          color="primary"
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </Tooltip>
                     </TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell colSpan={5} sx={{ padding: "0px" }}>
                       <Collapse in={collapsed.has(workout.workoutId)}>
+                        <AddExercise workoutId={workout.workoutId} />
                         <Table>
                           <TableHead>
                             <TableRow>
-                              <TableCell>Exercise Name</TableCell>
-                              <TableCell>Body Part</TableCell>
-                              <TableCell>Sets</TableCell>
-                              <TableCell>Reps</TableCell>
-                              <TableCell>Weight</TableCell>
-                              <TableCell>Edit</TableCell>
-                              <TableCell>Delete</TableCell>
+                              <TableCell className="buttonText">
+                                Exercise Name
+                              </TableCell>
+                              <TableCell className="buttonText">
+                                Body Part
+                              </TableCell>
+                              <TableCell className="buttonText">Sets</TableCell>
+                              <TableCell className="buttonText">Reps</TableCell>
+                              <TableCell className="buttonText">
+                                Weight
+                              </TableCell>
+                              <TableCell className="buttonText">Edit</TableCell>
+                              <TableCell className="buttonText">
+                                Delete
+                              </TableCell>
                             </TableRow>
                           </TableHead>
                           <TableBody>
@@ -114,10 +184,29 @@ function Workoutlist() {
                                 <TableCell>{exercise.reps}</TableCell>
                                 <TableCell>{exercise.weight}</TableCell>
                                 <TableCell>
-                                  <EditIcon />
+                                  <UpdateExercise
+                                    exerciseData={exercise}
+                                    onExerciseUpdated={onExerciseUpdated}
+                                  />
                                 </TableCell>
                                 <TableCell>
-                                  <DeleteIcon />
+                                  <Tooltip title="Delete exercise">
+                                    <IconButton
+                                      onClick={() => {
+                                        if (
+                                          window.confirm(
+                                            `Are you sure you want to delete ${exercise.name}?`
+                                          )
+                                        ) {
+                                          deleteExerciseMutate(exercise);
+                                        }
+                                      }}
+                                      aria-label="delete"
+                                      color="primary"
+                                    >
+                                      <DeleteIcon />
+                                    </IconButton>
+                                  </Tooltip>
                                 </TableCell>
                               </TableRow>
                             ))}
@@ -131,6 +220,18 @@ function Workoutlist() {
             </TableBody>
           </Table>
         </TableContainer>
+        <Snackbar
+          open={open}
+          autoHideDuration={3000}
+          onClose={(_event, reason) => {
+            if (reason === "clickaway") {
+              // Prevent the Snackbar from closing when clicking outside
+              return;
+            }
+            setOpen(false);
+          }}
+          message={message}
+        ></Snackbar>
       </>
     );
   }
