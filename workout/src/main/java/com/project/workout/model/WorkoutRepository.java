@@ -1,4 +1,4 @@
-package com.project.workout.domain;
+package com.project.workout.model;
 
 import java.util.List;
 import java.util.Optional;

@@ -5,9 +5,9 @@ package com.project.workout.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.project.workout.domain.AppUser;
-import com.project.workout.domain.AppUserRepository;
 import com.project.workout.exception.UserAlreadyExistsException;
+import com.project.workout.model.AppUser;
+import com.project.workout.model.AppUserRepository;
 
 
 @Service

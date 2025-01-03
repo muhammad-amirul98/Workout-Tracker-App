@@ -1,4 +1,4 @@
-package com.project.workout.web;
+package com.project.workout.controller;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.workout.domain.AccountCredentials;
+import com.project.workout.model.AccountCredentials;
 import com.project.workout.service.JwtService;
 
 @RestController

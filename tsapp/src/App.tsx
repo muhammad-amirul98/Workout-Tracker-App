@@ -15,6 +15,7 @@ import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { styled } from "@mui/system";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
+import Footer from "./components/Footer";
 
 const queryClient = new QueryClient();
 
@@ -36,111 +37,84 @@ function App() {
   };
 
   return (
-    <Container
-      maxWidth="xl"
-      sx={{
-        backgroundColor: "#000000", // Background color for the entire page
-        minHeight: "100vh", // Ensure the background covers the full height of the viewport
-      }}
-    >
-      <CssBaseline />
-      <AppBar position="static" sx={{ backgroundColor: "#000000" }}>
-        <CustomToolbar sx={{ color: "#3A7BFF" }}>
-          <Box sx={{ flexGrow: 1 }}>
-            <Typography variant="h6" className="logoText">
-              Workout Tracker
-            </Typography>
-          </Box>
-          <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
-            <Button className="buttonText buttonHover">About</Button>
-            <Button className="buttonText buttonHover">Features</Button>
-            <Button className="buttonText buttonHover">Contact</Button>
-            <IconButton className="buttonText iconButtonHover">
-              <SearchIcon />
-            </IconButton>
-            {location.pathname !== "/signup" && !isLoggedIn && (
-              <Button
-                onClick={() => {
-                  navigate("/signup");
-                }}
-                className="buttonText buttonHover"
-              >
-                Sign Up
-              </Button>
-            )}
-            {isLoggedIn && (
-              <Button
-                onClick={logOut}
-                color="inherit"
-                className="buttonText buttonHover"
-              >
-                Log Out
-              </Button>
-            )}
-          </div>
-        </CustomToolbar>
-      </AppBar>
-      <QueryClientProvider client={queryClient}>
-        <Routes>
-          <Route
-            path="/"
-            element={<Login isAuthenticated={isLoggedIn} onLogin={logIn} />}
-          />
-          <Route path="/signup" element={<SignUp />}></Route>
-        </Routes>
-      </QueryClientProvider>
-    </Container>
+    <>
+      <Container
+        maxWidth="xl"
+        sx={{
+          backgroundColor: "#000000", // Background color for the entire page
+          minHeight: "100vh", // Ensure the background covers the full height of the viewport
+        }}
+      >
+        <CssBaseline />
+        <AppBar position="static" sx={{ backgroundColor: "#000000" }}>
+          <CustomToolbar sx={{ color: "#3A7BFF" }}>
+            <Box sx={{ flexGrow: 1 }}>
+              <Typography variant="h6" className="logoText">
+                Workout Tracker
+              </Typography>
+            </Box>
+            <div
+              style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}
+            >
+              {location.pathname !== "/signup" && !isLoggedIn && (
+                <Button
+                  onClick={() => {
+                    navigate("/signup");
+                  }}
+                  className="buttonText buttonHover"
+                >
+                  Sign Up
+                </Button>
+              )}
+              {isLoggedIn && (
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <Box sx={{ display: "flex", gap: "1.5rem" }}>
+                    <Button className="buttonText buttonHover">Workout</Button>
+                    <Button className="buttonText buttonHover">
+                      Workout Logs
+                    </Button>
+                    <Button className="buttonText buttonHover">Progress</Button>
+                    <IconButton className="buttonText iconButtonHover">
+                      <SearchIcon />
+                    </IconButton>
+                  </Box>
+                  <Box
+                    sx={{
+                      alignItems: "center",
+                      // gap: "10rem",
+                      marginLeft: 45,
+                      display: "flex",
+                    }}
+                  >
+                    <Button className="buttonText buttonHover" onClick={logOut}>
+                      Log Out
+                    </Button>
+                  </Box>
+                </Box>
+              )}
+            </div>
+          </CustomToolbar>
+        </AppBar>
+        <QueryClientProvider client={queryClient}>
+          <Routes>
+            <Route
+              path="/"
+              element={<Login isAuthenticated={isLoggedIn} onLogin={logIn} />}
+            />
+            <Route path="/signup" element={<SignUp />}></Route>
+          </Routes>
+        </QueryClientProvider>
+      </Container>
+      <Footer />
+    </>
   );
 }
 
 export default App;
-
-// return (
-//   <Router>
-//     <Container maxWidth="xl">
-//       <CssBaseline />
-//       <AppBar position="static">
-//         <Toolbar>
-//           <Box sx={{ flexGrow: 1 }}>
-//             <Typography variant="h6">Workout Tracker</Typography>
-//           </Box>
-//           {!isLoggedIn && (
-//             <Button
-//               onClick={() => navigate("/signup")}
-//               color="inherit"
-//               sx={{
-//                 fontSize: "1.25rem",
-//                 fontWeight: 400,
-//                 textTransform: "none",
-//               }}
-//             >
-//               Sign Up
-//             </Button>
-//           )}
-//           {isLoggedIn && (
-//             <Button
-//               onClick={logOut}
-//               color="inherit"
-//               sx={{
-//                 fontSize: "1.25rem",
-//                 fontWeight: 400,
-//                 textTransform: "none",
-//               }}
-//             >
-//               Log Out
-//             </Button>
-//           )}
-//         </Toolbar>
-//       </AppBar>
-//       <QueryClientProvider client={queryClient}>
-//         <Routes>
-//           <Route
-//             path="/"
-//             element={<Login isAuthenticated={isLoggedIn} onLogin={logIn} />}
-//           ></Route>
-// <Route path="/signup" element={<SignUp />}></Route>
-//         </Routes>
-//       </QueryClientProvider>
-//     </Container>
-//   </Router>
-// );

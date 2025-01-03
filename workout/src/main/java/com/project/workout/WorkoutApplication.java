@@ -9,12 +9,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
-import com.project.workout.domain.AppUser;
-import com.project.workout.domain.AppUserRepository;
-import com.project.workout.domain.Exercise;
-import com.project.workout.domain.ExerciseRepository;
-import com.project.workout.domain.Workout;
-import com.project.workout.domain.WorkoutRepository;
+import com.project.workout.model.AppUser;
+import com.project.workout.model.AppUserRepository;
+import com.project.workout.model.Exercise;
+import com.project.workout.model.ExerciseRepository;
+import com.project.workout.model.Workout;
+import com.project.workout.model.WorkoutRepository;
 
 @SpringBootApplication
 @EnableMethodSecurity

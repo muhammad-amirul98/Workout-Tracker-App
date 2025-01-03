@@ -43,6 +43,10 @@ function Login({ isAuthenticated, onLogin }: LoginProps) {
         if (jwtToken != null) {
           sessionStorage.setItem("jwt", jwtToken);
           onLogin();
+          setUser({
+            username: "",
+            password: "",
+          });
         }
       })
       .catch(() => setOpen(true));
@@ -52,18 +56,6 @@ function Login({ isAuthenticated, onLogin }: LoginProps) {
     return <Workoutlist />;
   } else {
     return (
-      // <Stack spacing={2} alignItems="center" mt={2}>
-      //   <TextField name="username" label="Username" onChange={handleChange} />
-      //   <TextField
-      //     type="password"
-      //     name="password"
-      //     label="Password"
-      //     onChange={handleChange}
-      //   />
-      //   <Button variant="outlined" color="primary" onClick={handleLogin}>
-      //     Login
-      //   </Button>
-      // </Stack>
       <>
         <br />
         <form
@@ -98,16 +90,6 @@ function Login({ isAuthenticated, onLogin }: LoginProps) {
             />
           </Stack>
         </form>
-        {/* <Stack
-          alignItems="center"
-          sx={{
-            border: "1px solid #ccc",
-            borderRadius: "8px",
-            padding: 2,
-            margin: "auto",
-            width: "fit-content",
-          }}
-        > */}
         <Typography
           sx={{
             border: "1px solid #3a7bff",

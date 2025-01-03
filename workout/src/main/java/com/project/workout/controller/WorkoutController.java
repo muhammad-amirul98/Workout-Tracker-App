@@ -1,4 +1,4 @@
-package com.project.workout.web;
+package com.project.workout.controller;
 
 import java.io.Console;
 import java.util.List;
@@ -19,12 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.project.workout.domain.AppUser;
-import com.project.workout.domain.AppUserRepository;
-import com.project.workout.domain.Exercise;
-import com.project.workout.domain.ExerciseRepository;
-import com.project.workout.domain.Workout;
-import com.project.workout.domain.WorkoutRepository;
+import com.project.workout.model.AppUser;
+import com.project.workout.model.AppUserRepository;
+import com.project.workout.model.Exercise;
+import com.project.workout.model.ExerciseRepository;
+import com.project.workout.model.Workout;
+import com.project.workout.model.WorkoutRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

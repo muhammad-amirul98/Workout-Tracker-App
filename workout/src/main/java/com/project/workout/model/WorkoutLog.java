@@ -1,4 +1,4 @@
-package com.project.workout.domain;
+package com.project.workout.model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

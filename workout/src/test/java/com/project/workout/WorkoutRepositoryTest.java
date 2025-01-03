@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import com.project.workout.domain.Workout;
-import com.project.workout.domain.WorkoutRepository;
+import com.project.workout.model.Workout;
+import com.project.workout.model.WorkoutRepository;
 
 @DataJpaTest
 public class WorkoutRepositoryTest {
