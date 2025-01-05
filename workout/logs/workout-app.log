@@ -1,105 +1,34 @@
-2025-01-03T14:53:29.001+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : Starting WorkoutApplication using Java 23 with PID 2425 (/Users/amirul/git/repository2/workout/bin/main started by amirul in /Users/amirul/git/repository2/workout)
-2025-01-03T14:53:29.009+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : No active profile set, falling back to 1 default profile: "default"
-2025-01-03T14:53:29.048+08:00  INFO 2425 --- [workout] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2025-01-03T14:53:29.049+08:00  INFO 2425 --- [workout] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2025-01-03T14:53:29.457+08:00  INFO 2425 --- [workout] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-01-03T14:53:29.484+08:00  INFO 2425 --- [workout] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 3 JPA repository interfaces.
-2025-01-03T14:53:29.786+08:00  INFO 2425 --- [workout] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-01-03T14:53:29.794+08:00  INFO 2425 --- [workout] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-01-03T14:53:29.794+08:00  INFO 2425 --- [workout] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
-2025-01-03T14:53:29.813+08:00  INFO 2425 --- [workout] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-01-03T14:53:29.814+08:00  INFO 2425 --- [workout] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 764 ms
-2025-01-03T14:53:29.907+08:00  INFO 2425 --- [workout] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-01-03T14:53:29.934+08:00  INFO 2425 --- [workout] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
-2025-01-03T14:53:29.952+08:00  INFO 2425 --- [workout] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-01-03T14:53:30.073+08:00  INFO 2425 --- [workout] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-01-03T14:53:30.084+08:00  INFO 2425 --- [workout] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-01-03T14:53:30.172+08:00  INFO 2425 --- [workout] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@63bda4a4
-2025-01-03T14:53:30.173+08:00  INFO 2425 --- [workout] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-01-03T14:53:30.577+08:00  INFO 2425 --- [workout] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-01-03T14:53:30.917+08:00  INFO 2425 --- [workout] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-01-03T14:53:31.104+08:00  INFO 2425 --- [workout] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
-2025-01-03T14:53:31.157+08:00  WARN 2425 --- [workout] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-01-03T14:53:31.542+08:00  INFO 2425 --- [workout] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-01-03T14:53:31.557+08:00  INFO 2425 --- [workout] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-01-03T14:53:31.563+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : Started WorkoutApplication in 2.742 seconds (process running for 3.089)
-2025-01-03T14:53:31.640+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Tricep Pulldown, sets: 3, reps: 8
-2025-01-03T14:53:31.640+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Shoulder Press, sets: 4, reps: 8
-2025-01-03T14:53:31.640+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Bench Press, sets: 5, reps: 5
-2025-01-03T14:53:31.640+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Pull Ups, sets: 3, reps: 8
-2025-01-03T14:53:31.640+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Deadlift, sets: 4, reps: 8
-2025-01-03T14:53:31.640+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Bicep Curls, sets: 5, reps: 5
-2025-01-03T14:53:36.229+08:00  INFO 2425 --- [workout] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-01-03T14:53:36.229+08:00  INFO 2425 --- [workout] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-01-03T14:53:36.231+08:00  INFO 2425 --- [workout] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2025-01-03T15:14:20.931+08:00  INFO 2425 --- [workout] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 22 class path changes (8 additions, 8 deletions, 6 modifications)
-2025-01-03T15:14:22.555+08:00  WARN 2425 --- [workout] [Thread-5] org.apache.tomcat.util.net.Acceptor      : The acceptor thread [http-nio-8080-Acceptor] did not stop cleanly
-2025-01-03T15:14:22.569+08:00  INFO 2425 --- [workout] [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-01-03T15:14:22.858+08:00  INFO 2425 --- [workout] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2025-01-03T15:14:22.863+08:00  INFO 2425 --- [workout] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2025-01-03T15:14:22.928+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : Starting WorkoutApplication using Java 23 with PID 2425 (/Users/amirul/git/repository2/workout/bin/main started by amirul in /Users/amirul/git/repository2/workout)
-2025-01-03T15:14:22.928+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : No active profile set, falling back to 1 default profile: "default"
-2025-01-03T15:14:23.029+08:00  INFO 2425 --- [workout] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-01-03T15:14:23.034+08:00  INFO 2425 --- [workout] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 3 JPA repository interfaces.
-2025-01-03T15:14:23.121+08:00  INFO 2425 --- [workout] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-01-03T15:14:23.122+08:00  INFO 2425 --- [workout] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-01-03T15:14:23.122+08:00  INFO 2425 --- [workout] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
-2025-01-03T15:14:23.129+08:00  INFO 2425 --- [workout] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-01-03T15:14:23.129+08:00  INFO 2425 --- [workout] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 199 ms
-2025-01-03T15:14:23.149+08:00  INFO 2425 --- [workout] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-01-03T15:14:23.150+08:00  INFO 2425 --- [workout] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-01-03T15:14:23.153+08:00  INFO 2425 --- [workout] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-01-03T15:14:23.154+08:00  INFO 2425 --- [workout] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
-2025-01-03T15:14:23.166+08:00  INFO 2425 --- [workout] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.mariadb.jdbc.Connection@431e8d02
-2025-01-03T15:14:23.166+08:00  INFO 2425 --- [workout] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
-2025-01-03T15:14:23.198+08:00  INFO 2425 --- [workout] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-01-03T15:14:23.479+08:00  INFO 2425 --- [workout] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-01-03T15:14:23.519+08:00  INFO 2425 --- [workout] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
-2025-01-03T15:14:23.536+08:00  WARN 2425 --- [workout] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-01-03T15:14:23.646+08:00  INFO 2425 --- [workout] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-01-03T15:14:23.650+08:00  INFO 2425 --- [workout] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-01-03T15:14:23.652+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : Started WorkoutApplication in 0.735 seconds (process running for 1255.156)
-2025-01-03T15:14:23.667+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Tricep Pulldown, sets: 3, reps: 8
-2025-01-03T15:14:23.667+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Shoulder Press, sets: 4, reps: 8
-2025-01-03T15:14:23.667+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Bench Press, sets: 5, reps: 5
-2025-01-03T15:14:23.668+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Pull Ups, sets: 3, reps: 8
-2025-01-03T15:14:23.668+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Deadlift, sets: 4, reps: 8
-2025-01-03T15:14:23.668+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Bicep Curls, sets: 5, reps: 5
-2025-01-03T15:14:23.669+08:00  INFO 2425 --- [workout] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2025-01-03T15:14:55.385+08:00  INFO 2425 --- [workout] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 6 class path changes (3 additions, 3 deletions, 0 modifications)
-2025-01-03T15:14:56.999+08:00  WARN 2425 --- [workout] [Thread-7] org.apache.tomcat.util.net.Acceptor      : The acceptor thread [http-nio-8080-Acceptor] did not stop cleanly
-2025-01-03T15:14:57.007+08:00  INFO 2425 --- [workout] [Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-01-03T15:14:57.245+08:00  INFO 2425 --- [workout] [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
-2025-01-03T15:14:57.247+08:00  INFO 2425 --- [workout] [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
-2025-01-03T15:14:57.312+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : Starting WorkoutApplication using Java 23 with PID 2425 (/Users/amirul/git/repository2/workout/bin/main started by amirul in /Users/amirul/git/repository2/workout)
-2025-01-03T15:14:57.312+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : No active profile set, falling back to 1 default profile: "default"
-2025-01-03T15:14:57.383+08:00  INFO 2425 --- [workout] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-01-03T15:14:57.387+08:00  INFO 2425 --- [workout] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 3 JPA repository interfaces.
-2025-01-03T15:14:57.431+08:00  INFO 2425 --- [workout] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-2025-01-03T15:14:57.432+08:00  INFO 2425 --- [workout] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-01-03T15:14:57.432+08:00  INFO 2425 --- [workout] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
-2025-01-03T15:14:57.440+08:00  INFO 2425 --- [workout] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-01-03T15:14:57.440+08:00  INFO 2425 --- [workout] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 127 ms
-2025-01-03T15:14:57.454+08:00  INFO 2425 --- [workout] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-01-03T15:14:57.455+08:00  INFO 2425 --- [workout] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-01-03T15:14:57.457+08:00  INFO 2425 --- [workout] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-01-03T15:14:57.458+08:00  INFO 2425 --- [workout] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
-2025-01-03T15:14:57.460+08:00  INFO 2425 --- [workout] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection org.mariadb.jdbc.Connection@7425f5b8
-2025-01-03T15:14:57.460+08:00  INFO 2425 --- [workout] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
-2025-01-03T15:14:57.490+08:00  INFO 2425 --- [workout] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-01-03T15:14:57.773+08:00  INFO 2425 --- [workout] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-01-03T15:14:57.810+08:00  INFO 2425 --- [workout] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
-2025-01-03T15:14:57.821+08:00  WARN 2425 --- [workout] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-01-03T15:14:57.910+08:00  INFO 2425 --- [workout] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2025-01-03T15:14:57.915+08:00  INFO 2425 --- [workout] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-2025-01-03T15:14:57.917+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : Started WorkoutApplication in 0.615 seconds (process running for 1289.42)
-2025-01-03T15:14:57.935+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Tricep Pulldown, sets: 3, reps: 8
-2025-01-03T15:14:57.935+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Shoulder Press, sets: 4, reps: 8
-2025-01-03T15:14:57.935+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Bench Press, sets: 5, reps: 5
-2025-01-03T15:14:57.935+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Pull Ups, sets: 3, reps: 8
-2025-01-03T15:14:57.935+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Deadlift, sets: 4, reps: 8
-2025-01-03T15:14:57.935+08:00  INFO 2425 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Bicep Curls, sets: 5, reps: 5
-2025-01-03T15:14:57.936+08:00  INFO 2425 --- [workout] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2025-01-03T15:20:22.954+08:00  INFO 2425 --- [workout] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-01-03T15:20:22.958+08:00  INFO 2425 --- [workout] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-01-03T15:20:22.971+08:00  INFO 2425 --- [workout] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 13 ms
+2025-01-05T21:00:49.570+08:00  INFO 4348 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : Starting WorkoutApplication using Java 23 with PID 4348 (/Users/amirul/git/repository2/workout/bin/main started by amirul in /Users/amirul/git/repository2/workout)
+2025-01-05T21:00:49.576+08:00  INFO 4348 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : No active profile set, falling back to 1 default profile: "default"
+2025-01-05T21:00:49.610+08:00  INFO 4348 --- [workout] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-01-05T21:00:49.610+08:00  INFO 4348 --- [workout] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-01-05T21:00:50.078+08:00  INFO 4348 --- [workout] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-01-05T21:00:50.105+08:00  INFO 4348 --- [workout] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 3 JPA repository interfaces.
+2025-01-05T21:00:50.409+08:00  INFO 4348 --- [workout] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-01-05T21:00:50.416+08:00  INFO 4348 --- [workout] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-01-05T21:00:50.416+08:00  INFO 4348 --- [workout] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-01-05T21:00:50.440+08:00  INFO 4348 --- [workout] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-01-05T21:00:50.440+08:00  INFO 4348 --- [workout] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 830 ms
+2025-01-05T21:00:50.532+08:00  INFO 4348 --- [workout] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-01-05T21:00:50.561+08:00  INFO 4348 --- [workout] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2025-01-05T21:00:50.580+08:00  INFO 4348 --- [workout] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-01-05T21:00:50.725+08:00  INFO 4348 --- [workout] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-01-05T21:00:50.743+08:00  INFO 4348 --- [workout] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-01-05T21:00:51.029+08:00  INFO 4348 --- [workout] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@39bf4a6d
+2025-01-05T21:00:51.030+08:00  INFO 4348 --- [workout] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-01-05T21:00:51.411+08:00  INFO 4348 --- [workout] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-01-05T21:00:51.870+08:00  INFO 4348 --- [workout] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-01-05T21:00:52.094+08:00  INFO 4348 --- [workout] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2025-01-05T21:00:52.153+08:00  WARN 4348 --- [workout] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-01-05T21:00:52.586+08:00  INFO 4348 --- [workout] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-01-05T21:00:52.601+08:00  INFO 4348 --- [workout] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-01-05T21:00:52.607+08:00  INFO 4348 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : Started WorkoutApplication in 3.221 seconds (process running for 3.56)
+2025-01-05T21:00:52.727+08:00  INFO 4348 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Tricep Pulldown, sets: 3, reps: 8
+2025-01-05T21:00:52.729+08:00  INFO 4348 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Shoulder Press, sets: 4, reps: 8
+2025-01-05T21:00:52.729+08:00  INFO 4348 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Bench Press, sets: 5, reps: 5
+2025-01-05T21:00:52.729+08:00  INFO 4348 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Pull Ups, sets: 3, reps: 8
+2025-01-05T21:00:52.729+08:00  INFO 4348 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Deadlift, sets: 4, reps: 8
+2025-01-05T21:00:52.729+08:00  INFO 4348 --- [workout] [restartedMain] com.project.workout.WorkoutApplication   : name: Bicep Curls, sets: 5, reps: 5
+2025-01-05T21:00:58.098+08:00  INFO 4348 --- [workout] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-01-05T21:00:58.099+08:00  INFO 4348 --- [workout] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-01-05T21:00:58.106+08:00  INFO 4348 --- [workout] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms

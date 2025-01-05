@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useMutation } from "@tanstack/react-query";
 import * as React from "react";
@@ -104,6 +105,7 @@ function Workoutlist() {
                 <TableCell className="cellText">Exercises</TableCell>
                 <TableCell className="cellText">Edit</TableCell>
                 <TableCell className="cellText">Delete</TableCell>
+                <TableCell className="cellText">Start</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -150,9 +152,16 @@ function Workoutlist() {
                         </IconButton>
                       </Tooltip>
                     </TableCell>
+                    <TableCell>
+                      <Tooltip title="Begin workout">
+                        <IconButton color="primary">
+                          <FitnessCenterIcon />
+                        </IconButton>
+                      </Tooltip>
+                    </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell colSpan={5} sx={{ padding: "0px" }}>
+                    <TableCell colSpan={6} sx={{ padding: "0px" }}>
                       <Collapse in={collapsed.has(workout.workoutId)}>
                         <AddExercise workoutId={workout.workoutId} />
                         <Table>
@@ -167,7 +176,7 @@ function Workoutlist() {
                               <TableCell className="buttonText">Sets</TableCell>
                               <TableCell className="buttonText">Reps</TableCell>
                               <TableCell className="buttonText">
-                                Weight
+                                Weight (kg)
                               </TableCell>
                               <TableCell className="buttonText">Edit</TableCell>
                               <TableCell className="buttonText">
