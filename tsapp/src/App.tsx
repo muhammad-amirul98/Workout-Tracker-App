@@ -11,11 +11,22 @@ import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
 import { useState } from "react";
 import SignUp from "./components/SignUp";
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useNavigate,
+  useLocation,
+  Link,
+} from "react-router-dom";
 import { styled } from "@mui/system";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Footer from "./components/Footer";
+import WorkoutLog from "./components/workoutlog/WorkoutLog";
+import HistoryIcon from "@mui/icons-material/History";
+import ShowChartIcon from "@mui/icons-material/ShowChart";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import CurrentWorkout from "./components/workouts/CurrentWorkout";
 
 const queryClient = new QueryClient();
 
@@ -32,7 +43,10 @@ function App() {
 
   const logIn = () => setIsLoggedIn(true);
   const logOut = () => {
+    navigate("/");
     sessionStorage.removeItem("jwt");
+    sessionStorage.removeItem("workoutStartTime");
+    sessionStorage.removeItem("currentWorkout");
     setIsLoggedIn(false);
   };
 
@@ -49,9 +63,11 @@ function App() {
         <AppBar position="static" sx={{ backgroundColor: "#000000" }}>
           <CustomToolbar sx={{ color: "#3A7BFF" }}>
             <Box sx={{ flexGrow: 1 }}>
-              <Typography variant="h6" className="logoText">
-                Workout Tracker
-              </Typography>
+              <Link to={"/"} style={{ textDecoration: "none" }}>
+                <Typography variant="h6" className="logoText">
+                  Workout Tracker
+                </Typography>
+              </Link>
             </Box>
             <div
               style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}
@@ -75,12 +91,41 @@ function App() {
                     width: "100%",
                   }}
                 >
-                  <Box sx={{ display: "flex", gap: "1.5rem" }}>
-                    <Button className="buttonText buttonHover">Workout</Button>
-                    <Button className="buttonText buttonHover">
-                      Workout Logs
+                  <Box sx={{ display: "flex", gap: "5rem" }}>
+                    <Button
+                      className="buttonText buttonHover"
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                      onClick={() => navigate("/currentworkout")}
+                    >
+                      <FitnessCenterIcon />
+                      Current Workout
                     </Button>
-                    <Button className="buttonText buttonHover">Progress</Button>
+                    <Button
+                      className="buttonText buttonHover"
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                    >
+                      <HistoryIcon />
+                      Logs
+                    </Button>
+                    <Button
+                      className="buttonText buttonHover"
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                    >
+                      <ShowChartIcon />
+                      Progress
+                    </Button>
                     <IconButton className="buttonText iconButtonHover">
                       <SearchIcon />
                     </IconButton>
@@ -108,7 +153,9 @@ function App() {
               path="/"
               element={<Login isAuthenticated={isLoggedIn} onLogin={logIn} />}
             />
-            <Route path="/signup" element={<SignUp />}></Route>
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/workout-log" element={<WorkoutLog />} />
+            <Route path="/currentworkout" element={<CurrentWorkout />} />
           </Routes>
         </QueryClientProvider>
       </Container>

@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useMutation } from "@tanstack/react-query";
 import * as React from "react";
@@ -27,6 +27,9 @@ import Tooltip from "@mui/material/Tooltip";
 import AddExercise from "../exercises/AddExercise";
 import UpdateExercise from "../exercises/UpdateExercise";
 import { deleteExercise } from "../../api/exerciseapi";
+import { useNavigate } from "react-router-dom";
+import { Workout } from "../../types";
+import PlateWeightCalculator from "../utilities/PlateWeightCalculator";
 
 function Workoutlist() {
   const { data, error, isSuccess } = useQuery({
@@ -37,6 +40,7 @@ function Workoutlist() {
   const [collapsed, setCollapsed] = useState<Set<number>>(new Set());
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const onWorkoutUpdated = () => {
     setOpen(true);
@@ -88,6 +92,11 @@ function Workoutlist() {
     });
   };
 
+  const navigateToCurrentWorkout = (workout: Workout) => {
+    sessionStorage.setItem("currentWorkout", JSON.stringify(workout));
+    navigate("/currentworkout");
+  };
+
   if (!isSuccess) {
     return <span>Loading...</span>;
   } else if (error) {
@@ -96,6 +105,7 @@ function Workoutlist() {
     return (
       <>
         <AddWorkout />
+        <PlateWeightCalculator />
         <TableContainer component={Paper}>
           <Table>
             <TableHead sx={{ backgroundColor: "#1976d2" }}>
@@ -154,8 +164,11 @@ function Workoutlist() {
                     </TableCell>
                     <TableCell>
                       <Tooltip title="Begin workout">
-                        <IconButton color="primary">
-                          <FitnessCenterIcon />
+                        <IconButton
+                          color="primary"
+                          onClick={() => navigateToCurrentWorkout(workout)}
+                        >
+                          <PlayArrowIcon />
                         </IconButton>
                       </Tooltip>
                     </TableCell>

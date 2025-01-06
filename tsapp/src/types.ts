@@ -71,6 +71,9 @@ export type Workout = {
 // The type for an array of workouts
 export type WorkoutResponse = Workout[];
 
+export type ActualValues = {
+  [key: number]: { reps: number; weight: number }[];
+};
 // export type WorkoutEntry = {
 //   name: string;
 //   type: string;
