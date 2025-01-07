@@ -11,6 +11,7 @@ import {
   Collapse,
   Paper,
   Snackbar,
+  Box,
 } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
@@ -92,8 +93,27 @@ function Workoutlist() {
     });
   };
 
-  const navigateToCurrentWorkout = (workout: Workout) => {
+  const startWorkout = (workout: Workout) => {
+    const storedWorkout = sessionStorage.getItem("currentWorkout");
+    if (storedWorkout) {
+      const parsedWorkout = JSON.parse(storedWorkout);
+      // console.log(parsedWorkout.id);
+      // console.log(parsedWorkout.id);
+      if (parsedWorkout.workoutId !== workout.workoutId) {
+        const shouldStartNewWorkout = window.confirm(
+          "You have a workout currently going on. Do you want to start a new one?"
+        );
+
+        if (!shouldStartNewWorkout) {
+          return; // Exit if the user cancels
+        }
+      }
+    }
+
     sessionStorage.setItem("currentWorkout", JSON.stringify(workout));
+
+    const newStartTime = Date.now();
+    sessionStorage.setItem("workoutStartTime", newStartTime.toString());
     navigate("/currentworkout");
   };
 
@@ -104,8 +124,15 @@ function Workoutlist() {
   } else {
     return (
       <>
-        <AddWorkout />
-        <PlateWeightCalculator />
+        <Box
+          display="flex"
+          // justifyContent="space-between"
+          alignItems="flex-start"
+          // gap={2}
+        >
+          <AddWorkout />
+          <PlateWeightCalculator />
+        </Box>
         <TableContainer component={Paper}>
           <Table>
             <TableHead sx={{ backgroundColor: "#1976d2" }}>
@@ -166,7 +193,7 @@ function Workoutlist() {
                       <Tooltip title="Begin workout">
                         <IconButton
                           color="primary"
-                          onClick={() => navigateToCurrentWorkout(workout)}
+                          onClick={() => startWorkout(workout)}
                         >
                           <PlayArrowIcon />
                         </IconButton>

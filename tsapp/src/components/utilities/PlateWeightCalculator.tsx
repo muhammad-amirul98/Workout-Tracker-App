@@ -40,35 +40,51 @@ function PlateWeightCalculator() {
     let remainingWeight = weightPerSide;
     for (const plate of plates) {
       const count = Math.floor(remainingWeight / plate);
+
       if (count > 0) {
         result[plate] = count;
         remainingWeight -= count * plate;
       }
     }
 
-    if (remainingWeight > 0) {
-      setMessage("Note: Exact weight not achievable with available plates.");
-    }
-
-    return result;
+    return { result, remainingWeight };
   };
 
   const handleCalculate = () => {
-    const result = calculatePlates(targetWeight, barbellWeight);
-    setMessage("Plates needed per side" + result);
+    const { result, remainingWeight } = calculatePlates(
+      targetWeight,
+      barbellWeight
+    );
+
+    const formattedMessage = Object.entries(result)
+      .map(([key, value]) => `${value} x ${key}kg`)
+      .join(", ");
+    console.log(result);
+
+    if (remainingWeight > 0) {
+      setMessage(
+        "Note: Exact weight not achievable with available plates. \nClosest weight: " +
+          formattedMessage
+      );
+    } else {
+      setMessage("Plates needed per side: \n" + formattedMessage);
+    }
   };
 
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
+    setMessage("");
     setOpen(false);
   };
 
   return (
     <>
       <div>
-        <Button onClick={handleClickOpen}>Plate Weight Calculator</Button>
+        <Button className="buttonText buttonHover" onClick={handleClickOpen}>
+          Plate Weight Calculator
+        </Button>
       </div>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Plate Weight Calculator</DialogTitle>
@@ -110,7 +126,7 @@ function PlateWeightCalculator() {
                 label="15kg"
                 control={
                   <Checkbox
-                    onChange={(e) => handleCheckboxChange(25, e.target.checked)}
+                    onChange={(e) => handleCheckboxChange(15, e.target.checked)}
                   />
                 }
               />
@@ -118,7 +134,7 @@ function PlateWeightCalculator() {
                 label="10kg"
                 control={
                   <Checkbox
-                    onChange={(e) => handleCheckboxChange(25, e.target.checked)}
+                    onChange={(e) => handleCheckboxChange(10, e.target.checked)}
                   />
                 }
               />
@@ -126,7 +142,7 @@ function PlateWeightCalculator() {
                 label="5kg"
                 control={
                   <Checkbox
-                    onChange={(e) => handleCheckboxChange(25, e.target.checked)}
+                    onChange={(e) => handleCheckboxChange(5, e.target.checked)}
                   />
                 }
               />
@@ -134,7 +150,9 @@ function PlateWeightCalculator() {
                 label="2.5kg"
                 control={
                   <Checkbox
-                    onChange={(e) => handleCheckboxChange(25, e.target.checked)}
+                    onChange={(e) =>
+                      handleCheckboxChange(2.5, e.target.checked)
+                    }
                   />
                 }
               />
@@ -142,7 +160,9 @@ function PlateWeightCalculator() {
                 label="1.25kg"
                 control={
                   <Checkbox
-                    onChange={(e) => handleCheckboxChange(25, e.target.checked)}
+                    onChange={(e) =>
+                      handleCheckboxChange(1.25, e.target.checked)
+                    }
                   />
                 }
               />

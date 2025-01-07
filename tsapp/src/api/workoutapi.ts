@@ -52,3 +52,5 @@ export const deleteWorkout = async (workout: Workout): Promise<string> => {
   );
   return response.data;
 };
+
+// export const startWorkout = async (workout: Workout):s

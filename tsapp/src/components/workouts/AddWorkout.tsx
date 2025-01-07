@@ -7,6 +7,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 import WorkoutDialogContent from "./WorkoutDialogContent";
 import { addWorkout } from "../../api/workoutapi";
+import "../../styles/styles.css";
 
 function AddWorkout() {
   const queryClient = useQueryClient();
@@ -49,7 +50,9 @@ function AddWorkout() {
   return (
     <>
       <div style={{ marginLeft: "7px" }}>
-        <Button onClick={handleClickOpen}>Add Workout</Button>
+        <Button className="buttonText buttonHover" onClick={handleClickOpen}>
+          Add Workout
+        </Button>
       </div>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add Workout</DialogTitle>

@@ -2,6 +2,7 @@
 // import { Exercise } from "../../types";
 import "../../styles/styles.css";
 import {
+  Button,
   Paper,
   Table,
   TableBody,
@@ -18,6 +19,7 @@ function CurrentWorkout() {
   const [currentWorkout, setCurrentWorkout] = useState<Workout | null>(null);
   const [secondsElapsed, setSecondsElapsed] = useState(0);
   const [actualValues, setActualValues] = useState<ActualValues>({});
+
   //USE EFFECT
   useEffect(() => {
     const storedWorkout = sessionStorage.getItem("currentWorkout");
@@ -36,19 +38,21 @@ function CurrentWorkout() {
         {}
       );
       setActualValues(initialActualValues);
+
+      const storedStartTime = sessionStorage.getItem("workoutStartTime");
+      const startTime = storedStartTime
+        ? parseInt(storedStartTime)
+        : Date.now();
+      if (!storedStartTime) {
+        sessionStorage.setItem("workoutStartTime", startTime.toString());
+      }
+
+      const timer = setInterval(() => {
+        setSecondsElapsed(Math.floor((Date.now() - startTime) / 1000));
+      }, 1000);
+
+      return () => clearInterval(timer);
     }
-
-    const storedStartTime = sessionStorage.getItem("workoutStartTime");
-    const startTime = storedStartTime ? parseInt(storedStartTime) : Date.now();
-    if (!storedStartTime) {
-      sessionStorage.setItem("workoutStartTime", startTime.toString());
-    }
-
-    const timer = setInterval(() => {
-      setSecondsElapsed(Math.floor((Date.now() - startTime) / 1000));
-    }, 1000);
-
-    return () => clearInterval(timer);
   }, []);
 
   //HANDLE INPUT CHANGE
@@ -97,8 +101,11 @@ function CurrentWorkout() {
               <TableCell colSpan={1} className="cellText">
                 Type: {currentWorkout.type}
               </TableCell>
-              <TableCell colSpan={2} className="cellText">
+              <TableCell colSpan={1} className="cellText">
                 Timer: {formatTime(secondsElapsed)}
+              </TableCell>
+              <TableCell>
+                <Button className="cellText buttonHover">Finish</Button>
               </TableCell>
             </TableRow>
             <TableRow>

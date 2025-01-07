@@ -9,7 +9,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Login from "./components/Login";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SignUp from "./components/SignUp";
 import {
   Routes,
@@ -27,6 +27,7 @@ import HistoryIcon from "@mui/icons-material/History";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import CurrentWorkout from "./components/workouts/CurrentWorkout";
+import ProtectedLayout from "./components/utilities/ProtectedLayout";
 
 const queryClient = new QueryClient();
 
@@ -39,7 +40,15 @@ function App() {
     justifyContent: "space-between",
   });
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    const storedValue = sessionStorage.getItem("isLoggedIn");
+    return storedValue === "true"; // Convert string to boolean
+  });
+
+  useEffect(() => {
+    sessionStorage.setItem("isLoggedIn", isLoggedIn.toString());
+  }, [isLoggedIn]);
 
   const logIn = () => setIsLoggedIn(true);
   const logOut = () => {
@@ -149,13 +158,18 @@ function App() {
         </AppBar>
         <QueryClientProvider client={queryClient}>
           <Routes>
+            {/* PUBLIC ROUTES */}
             <Route
               path="/"
               element={<Login isAuthenticated={isLoggedIn} onLogin={logIn} />}
             />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/workout-log" element={<WorkoutLog />} />
-            <Route path="/currentworkout" element={<CurrentWorkout />} />
+
+            {/* PRIVATE ROUTES */}
+            <Route element={<ProtectedLayout />}>
+              <Route path="/workout-log" element={<WorkoutLog />} />
+              <Route path="/currentworkout" element={<CurrentWorkout />} />
+            </Route>
           </Routes>
         </QueryClientProvider>
       </Container>
