@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.project.workout.model.AppUser;
-import com.project.workout.model.AppUserRepository;
+import com.project.workout.repository.AppUserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

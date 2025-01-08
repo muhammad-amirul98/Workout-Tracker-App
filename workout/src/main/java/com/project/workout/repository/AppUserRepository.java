@@ -1,10 +1,12 @@
-package com.project.workout.model;
+package com.project.workout.repository;
 
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.security.access.prepost.PreAuthorize;
+
+import com.project.workout.model.AppUser;
 
 //@RepositoryRestResource(exported=false)
 @RepositoryRestResource

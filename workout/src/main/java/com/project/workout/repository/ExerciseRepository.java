@@ -1,10 +1,12 @@
-package com.project.workout.model;
+package com.project.workout.repository;
 
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+
+import com.project.workout.model.Exercise;
 
 //@RepositoryRestResource(path="test")
 @RepositoryRestResource

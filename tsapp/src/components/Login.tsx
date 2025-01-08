@@ -71,6 +71,7 @@ function Login({ isAuthenticated, onLogin }: LoginProps) {
               label="Username"
               onChange={handleChange}
               className="custom-textfield"
+              autoFocus
             />
             <TextField
               type="password"

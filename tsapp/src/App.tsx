@@ -22,7 +22,7 @@ import { styled } from "@mui/system";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Footer from "./components/Footer";
-import WorkoutLog from "./components/workoutlog/WorkoutLog";
+import WorkoutLog from "./components/workoutlog/WorkoutLogs";
 import HistoryIcon from "@mui/icons-material/History";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
@@ -120,6 +120,7 @@ function App() {
                         flexDirection: "column",
                         alignItems: "center",
                       }}
+                      onClick={() => navigate("/workoutlogs")}
                     >
                       <HistoryIcon />
                       Logs
@@ -167,7 +168,7 @@ function App() {
 
             {/* PRIVATE ROUTES */}
             <Route element={<ProtectedLayout />}>
-              <Route path="/workout-log" element={<WorkoutLog />} />
+              <Route path="/workoutlogs" element={<WorkoutLog />} />
               <Route path="/currentworkout" element={<CurrentWorkout />} />
             </Route>
           </Routes>

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.workout.exception.UserAlreadyExistsException;
 import com.project.workout.model.AppUser;
-import com.project.workout.model.AppUserRepository;
+import com.project.workout.repository.AppUserRepository;
 
 
 @Service

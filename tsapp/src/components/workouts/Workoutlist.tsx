@@ -31,6 +31,7 @@ import { deleteExercise } from "../../api/exerciseapi";
 import { useNavigate } from "react-router-dom";
 import { Workout } from "../../types";
 import PlateWeightCalculator from "../utilities/PlateWeightCalculator";
+import { createWorkoutLog } from "../../api/workoutLogapi";
 
 function Workoutlist() {
   const { data, error, isSuccess } = useQuery({
@@ -93,12 +94,10 @@ function Workoutlist() {
     });
   };
 
-  const startWorkout = (workout: Workout) => {
+  const startWorkout = async (workout: Workout) => {
     const storedWorkout = sessionStorage.getItem("currentWorkout");
     if (storedWorkout) {
       const parsedWorkout = JSON.parse(storedWorkout);
-      // console.log(parsedWorkout.id);
-      // console.log(parsedWorkout.id);
       if (parsedWorkout.workoutId !== workout.workoutId) {
         const shouldStartNewWorkout = window.confirm(
           "You have a workout currently going on. Do you want to start a new one?"
@@ -111,10 +110,30 @@ function Workoutlist() {
     }
 
     sessionStorage.setItem("currentWorkout", JSON.stringify(workout));
-
     const newStartTime = Date.now();
     sessionStorage.setItem("workoutStartTime", newStartTime.toString());
-    navigate("/currentworkout");
+
+    // Prepare the workout log data
+    const workoutLog = {
+      workout: workout, // Associate the workout
+      startTime: new Date().toISOString(), // ISO 8601 format
+      endTime: null, // Not ended yet
+      status: "IN_PROGRESS" as const,
+      exerciseLogs: [], // Empty list initially
+    };
+
+    console.log("WORKOUT ID: " + workoutLog.workout.workoutId);
+
+    try {
+      // Send the workout log to the backend
+      const newWorkoutLog = await createWorkoutLog(workoutLog);
+      console.log("Workout log created:", newWorkoutLog);
+
+      navigate("/currentworkout");
+    } catch (error) {
+      console.error("Error starting workout:", error);
+      alert("Failed to start the workout.");
+    }
   };
 
   if (!isSuccess) {

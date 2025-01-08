@@ -49,7 +49,6 @@ public class WorkoutLog {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
 
 	public WorkoutLog(Workout workout, @NotNull LocalDateTime startTime, LocalDateTime endTime,
 			WorkoutLogStatus status) {

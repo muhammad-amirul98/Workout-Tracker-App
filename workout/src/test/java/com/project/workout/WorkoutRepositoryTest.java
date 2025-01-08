@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import com.project.workout.model.Workout;
-import com.project.workout.model.WorkoutRepository;
+import com.project.workout.repository.WorkoutRepository;
 
 @DataJpaTest
 public class WorkoutRepositoryTest {

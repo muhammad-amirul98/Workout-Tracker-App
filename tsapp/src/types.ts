@@ -71,12 +71,13 @@ export type Workout = {
 // The type for an array of workouts
 export type WorkoutResponse = Workout[];
 
+// for each set of workout in current workout
 export type ActualValues = {
   [key: number]: { reps: number; weight: number }[];
 };
 
 export type WorkoutLog = {
-  workout: Workout; // Assuming you have a Workout type
+  workout: Workout;
   startTime: string; // Use ISO 8601 format for date-time (e.g., "2025-01-07T12:00:00")
   endTime: string | null; // Nullable if the workout hasn't ended yet
   status: "IN_PROGRESS" | "COMPLETED" | "CANCELLED"; // Enum-like string union

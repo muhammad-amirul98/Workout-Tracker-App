@@ -1,11 +1,12 @@
 package com.project.workout.controller;
 
-import java.io.Console;
 import java.util.List;
-
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -20,14 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.project.workout.model.AppUser;
-import com.project.workout.model.AppUserRepository;
 import com.project.workout.model.Exercise;
-import com.project.workout.model.ExerciseRepository;
 import com.project.workout.model.Workout;
-import com.project.workout.model.WorkoutRepository;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.project.workout.repository.AppUserRepository;
+import com.project.workout.repository.ExerciseRepository;
+import com.project.workout.repository.WorkoutRepository;
 
 @RestController
 @RequestMapping("/workouts/me")
@@ -66,12 +64,9 @@ public class WorkoutController {
         String username = authentication.getName(); // Get the username from the Authentication
 
         // Find the logged-in user using the username
-        Optional<AppUser> userOptional = userRepository.findByUsername(username);
-        if (userOptional == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // User not found
-        }
-        
-        AppUser user = userOptional.get();
+        AppUser user = userRepository.findByUsername(username)
+        	    .orElseThrow(() -> new ResourceNotFoundException("User not found for username: " + username));
+
 
         // Set the user to the workout (to associate the workout with the logged-in user)
         workout.setUser(user);
