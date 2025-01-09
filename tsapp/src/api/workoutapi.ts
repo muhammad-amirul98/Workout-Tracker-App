@@ -1,16 +1,7 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
 import { WorkoutResponse, Workout } from "../types";
+import { getAxiosConfig } from "./authorization";
 // import { getWorkoutIdFromHref } from "../utils/utils";
-
-const getAxiosConfig = (): AxiosRequestConfig => {
-  const token = sessionStorage.getItem("jwt");
-  return {
-    headers: {
-      Authorization: token,
-      "Content-Type": "application/json",
-    },
-  };
-};
 
 export const getWorkoutsByUser = async (): Promise<WorkoutResponse> => {
   const response = await axios.get(

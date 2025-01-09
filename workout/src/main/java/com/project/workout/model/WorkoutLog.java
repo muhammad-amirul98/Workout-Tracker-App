@@ -42,10 +42,10 @@ public class WorkoutLog {
 	
 	@OneToMany(mappedBy = "workoutLog", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ExerciseLog> exerciseLogs = new ArrayList<>();
-	
+ 
 	
 	public WorkoutLog() {
-		super();
+		super(); 
 		// TODO Auto-generated constructor stub
 	}
 	

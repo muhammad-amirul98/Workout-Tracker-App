@@ -8,12 +8,18 @@ import { Button, TableBody, TableCell, TableRow } from "@mui/material";
 import React from "react";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { format } from "date-fns";
 
 function WorkoutLogs() {
   const { data, error, isSuccess } = useQuery({
     queryKey: ["workoutLogs"],
     queryFn: getWorkoutLogs,
   });
+
+  const formatDateTime = (isoString: string) => {
+    const date = new Date(isoString);
+    return format(date, "PPpp"); // Formats as "Jan 9, 2025, 4:17:00 AM"
+  };
 
   if (!isSuccess) {
     return <span>Loading...</span>;
@@ -55,10 +61,11 @@ function WorkoutLogs() {
                         </Button>
                       </TableCell>
                       <TableCell className="buttonText">
-                        {workoutLog.startTime}
+                        {formatDateTime(workoutLog.startTime)}
                       </TableCell>
                       <TableCell className="buttonText">
-                        {workoutLog.endTime}
+                        {workoutLog.endTime &&
+                          formatDateTime(workoutLog.endTime)}
                       </TableCell>
                       <TableCell className="buttonText">
                         {workoutLog.status}

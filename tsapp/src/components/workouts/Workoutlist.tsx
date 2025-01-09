@@ -115,6 +115,7 @@ function Workoutlist() {
 
     // Prepare the workout log data
     const workoutLog = {
+      id: 0,
       workout: workout, // Associate the workout
       startTime: new Date().toISOString(), // ISO 8601 format
       endTime: null, // Not ended yet
@@ -122,14 +123,16 @@ function Workoutlist() {
       exerciseLogs: [], // Empty list initially
     };
 
-    console.log("WORKOUT ID: " + workoutLog.workout.workoutId);
+    // console.log("WORKOUT ID: " + workoutLog.workout.workoutId);
 
     try {
       // Send the workout log to the backend
       const newWorkoutLog = await createWorkoutLog(workoutLog);
-      console.log("Workout log created:", newWorkoutLog);
+      // console.log("Workout log created:", newWorkoutLog.id);
 
-      navigate("/currentworkout");
+      navigate("/currentworkout", {
+        state: { workoutLogId: newWorkoutLog.id },
+      });
     } catch (error) {
       console.error("Error starting workout:", error);
       alert("Failed to start the workout.");

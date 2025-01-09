@@ -1,55 +1,3 @@
-// export type ExerciseResponse = {
-//   name: string;
-//   bodyPart: string;
-//   sets: number;
-//   reps: number;
-//   weight: number;
-//   _links: {
-//     self: {
-//       href: string;
-//     };
-//     exercise: {
-//       href: string;
-//     };
-//     workout: {
-//       href: string;
-//     };
-//   };
-// };
-
-// export type WorkoutResponse = {
-//   name: string;
-//   type: string;
-//   _links: {
-//     self: {
-//       href: string;
-//     };
-//     workout: {
-//       href: string;
-//     };
-//     exercise: {
-//       href: string;
-//     };
-//   };
-// };
-
-// export type Exercise = {
-//   name: string;
-//   bodyPart: string;
-//   sets: number;
-//   reps: number;
-//   weight: number;
-// };
-
-// export type ExerciseEntry = {
-//   exercise: Exercise;
-//   url: string;
-// };
-
-//////////////////////////////////////////////////////////////
-// users/me/workouts
-//////////////////////////////////////////////////////////////
-
 // Define the structure for Exercise
 export type Exercise = {
   id: number;
@@ -77,6 +25,7 @@ export type ActualValues = {
 };
 
 export type WorkoutLog = {
+  id: number;
   workout: Workout;
   startTime: string; // Use ISO 8601 format for date-time (e.g., "2025-01-07T12:00:00")
   endTime: string | null; // Nullable if the workout hasn't ended yet
@@ -85,11 +34,13 @@ export type WorkoutLog = {
 };
 
 export type ExerciseLog = {
+  id: number;
   exercise: Exercise;
   setLogs: SetLog[];
 };
 
 export type SetLog = {
+  id: number;
   setNumber: number;
   reps: number;
   weight: number;

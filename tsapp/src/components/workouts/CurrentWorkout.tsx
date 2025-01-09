@@ -12,13 +12,32 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { ActualValues, Exercise, Workout } from "../../types";
+import { ActualValues, Exercise, ExerciseLog, Workout } from "../../types";
 import DoneIcon from "@mui/icons-material/Done";
+import CancelIcon from "@mui/icons-material/Cancel";
+import {
+  createExerciseLog,
+  createSetLog,
+  workoutCancelled,
+  workoutCompleted,
+} from "../../api/workoutLogapi";
+import { useLocation } from "react-router-dom";
+// import { workoutCompleted } from "../../api/workoutLogapi";
 
 function CurrentWorkout() {
   const [currentWorkout, setCurrentWorkout] = useState<Workout | null>(null);
   const [secondsElapsed, setSecondsElapsed] = useState(0);
   const [actualValues, setActualValues] = useState<ActualValues>({});
+  const [completedSets, setCompletedSets] = useState<{
+    [exerciseId: number]: { [setIndex: number]: boolean };
+  }>({});
+
+  const [exerciseLogs, setExerciseLogs] = useState<Record<number, ExerciseLog>>(
+    {}
+  );
+
+  const location = useLocation();
+  const workoutLogId = location.state?.workoutLogId;
 
   //USE EFFECT
   useEffect(() => {
@@ -75,6 +94,87 @@ function CurrentWorkout() {
     });
   };
 
+  //SET COMPLETED
+  const handleSetCompleted = async (exerciseId: number, setIndex: number) => {
+    setCompletedSets((prev) => ({
+      ...prev,
+      [exerciseId]: {
+        ...(prev[exerciseId] || {}),
+        [setIndex]: !prev[exerciseId]?.[setIndex],
+      },
+    }));
+    console.log("hello");
+
+    const exerciseLog = exerciseLogs[exerciseId];
+    const reps = actualValues[exerciseId]?.[setIndex]?.reps;
+    const weight = actualValues[exerciseId]?.[setIndex]?.weight;
+
+    console.log("hello1");
+
+    if (!exerciseLog) {
+      try {
+        console.log("hello2");
+
+        const createdExerciseLog = await createExerciseLog(
+          workoutLogId,
+          exerciseId
+        );
+        console.log("hello3");
+
+        setExerciseLogs({
+          ...exerciseLogs,
+          [exerciseId]: createdExerciseLog,
+        });
+        console.log("LOGS: " + exerciseLogs);
+
+        await createSetLog(createdExerciseLog.id, setIndex, reps, weight);
+      } catch (error) {
+        console.error("Exercise Log Created, Set Log Creation Error: " + error);
+      }
+    } else {
+      try {
+        await createSetLog(exerciseLog.id, setIndex, reps, weight);
+      } catch (error) {
+        console.error("Set Log Creation Error: " + error);
+      }
+    }
+  };
+
+  //WORKOUT COMPLETED
+  const handleWorkoutFinished = async () => {
+    if (!currentWorkout) {
+      console.error("No workout is currently active.");
+      return;
+    }
+    // Check if all sets are completed
+    const allSetsCompleted = currentWorkout.exercises.every((exercise) =>
+      Array.from({ length: exercise.sets }).every(
+        (_, setIndex) => completedSets[exercise.id]?.[setIndex]
+      )
+    );
+
+    const status = allSetsCompleted ? "COMPLETED" : "CANCELLED";
+    const endTime = new Date().toISOString();
+
+    try {
+      if (allSetsCompleted) {
+        await workoutCompleted({ workoutLogId, status, endTime });
+        console.log("Workout marked as completed.");
+      } else {
+        await workoutCancelled({ workoutLogId, status, endTime });
+        console.log("Workout marked as cancelled.");
+      }
+      sessionStorage.removeItem("currentWorkout");
+      alert(`Workout ${status.toLowerCase()}.`);
+      window.location.reload();
+    } catch (error) {
+      console.error("Error finishing the workout:", error);
+      alert(
+        "There was an error updating the workout status. Please try again."
+      );
+    }
+  };
+
   //FORMAT TIME
 
   const formatTime = (seconds: number) => {
@@ -105,7 +205,12 @@ function CurrentWorkout() {
                 Timer: {formatTime(secondsElapsed)}
               </TableCell>
               <TableCell>
-                <Button className="cellText buttonHover">Finish</Button>
+                <Button
+                  onClick={handleWorkoutFinished}
+                  className="cellText buttonHover"
+                >
+                  Finish
+                </Button>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -143,6 +248,9 @@ function CurrentWorkout() {
                             parseInt(e.target.value) || 0
                           )
                         }
+                        disabled={
+                          completedSets[exercise.id]?.[setIndex] || false
+                        }
                       ></TextField>
                     </TableCell>
 
@@ -160,11 +268,24 @@ function CurrentWorkout() {
                             parseFloat(e.target.value) || 0
                           )
                         }
+                        disabled={
+                          completedSets[exercise.id]?.[setIndex] || false
+                        }
                       ></TextField>
                     </TableCell>
 
                     <TableCell>
-                      <DoneIcon />
+                      <Button
+                        onClick={() =>
+                          handleSetCompleted(exercise.id, setIndex)
+                        }
+                      >
+                        {completedSets[exercise.id]?.[setIndex] ? (
+                          <CancelIcon />
+                        ) : (
+                          <DoneIcon />
+                        )}
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}

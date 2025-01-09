@@ -1,13 +1,16 @@
 package com.project.workout.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.project.workout.dto.WorkoutLogStatusDTO;
 import com.project.workout.model.Workout;
 import com.project.workout.model.WorkoutLog;
+import com.project.workout.model.WorkoutLogStatus;
 import com.project.workout.repository.AppUserRepository;
 import com.project.workout.repository.WorkoutLogRepository;
 import com.project.workout.repository.WorkoutRepository;
@@ -72,8 +75,27 @@ public class WorkoutLogService {
     }
     
     
-    // FIND ALL BY USER ID
+    // FIND ALL BY USERNAME
     public List<WorkoutLog> getWorkoutLogsByUserUsername(String username) {
         return workoutLogRepository.findByUserUsername(username);
     }
+    
+    // UPDATE STATUS
+    public WorkoutLogStatusDTO updateWorkoutStatus(Long workoutLogId, WorkoutLogStatus status, LocalDateTime endTime) {
+    	WorkoutLog workoutLog = workoutLogRepository.findById(workoutLogId)
+    			.orElseThrow(() -> new ResourceNotFoundException("Workout Log not found"));
+    	
+    	workoutLog.setStatus(status);
+    	workoutLog.setEndTime(endTime);
+    	workoutLog = workoutLogRepository.save(workoutLog);
+    	
+    	return mapToDTO(workoutLog);
+    }
+    
+    private WorkoutLogStatusDTO mapToDTO(WorkoutLog workoutLog) {
+        return new WorkoutLogStatusDTO(workoutLog.getId(), workoutLog.getStatus(), workoutLog.getEndTime());
+    }
+    
+    
+    
 }

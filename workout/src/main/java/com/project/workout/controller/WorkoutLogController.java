@@ -1,5 +1,6 @@
 package com.project.workout.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.workout.dto.WorkoutLogStatusDTO;
 import com.project.workout.model.WorkoutLog;
+import com.project.workout.model.WorkoutLogStatus;
 import com.project.workout.repository.AppUserRepository;
 import com.project.workout.repository.ExerciseRepository;
 import com.project.workout.repository.WorkoutLogRepository;
@@ -64,6 +68,24 @@ public class WorkoutLogController {
 		
 		return ResponseEntity.ok(workoutLogs);
 	}
+	
+	
+	//COMPLETED
+	@PutMapping("/completed")
+    public ResponseEntity<WorkoutLogStatusDTO> markWorkoutAsCompleted(@RequestBody WorkoutLogStatusDTO workoutLogStatusDTO) {
+		WorkoutLogStatusDTO updatedWorkoutLog = workoutLogService.updateWorkoutStatus(
+				workoutLogStatusDTO.getWorkoutLogId(), WorkoutLogStatus.COMPLETED, workoutLogStatusDTO.getEndTime());
+        return ResponseEntity.ok(updatedWorkoutLog);
+    }
+	
+	
+	//CANCELLED
+    @PutMapping("/cancelled")
+    public ResponseEntity<WorkoutLogStatusDTO> markWorkoutAsCancelled(@RequestBody WorkoutLogStatusDTO workoutLogStatusDTO) {
+    	WorkoutLogStatusDTO updatedWorkoutLog = workoutLogService.updateWorkoutStatus(
+    			workoutLogStatusDTO.getWorkoutLogId(), WorkoutLogStatus.CANCELLED, workoutLogStatusDTO.getEndTime());
+        return ResponseEntity.ok(updatedWorkoutLog);
+    }
 	
 
 }
