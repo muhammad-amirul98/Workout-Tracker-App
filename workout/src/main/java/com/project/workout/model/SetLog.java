@@ -24,22 +24,22 @@ public class SetLog {
 	
 	private double weight;
 
-	public SetLog() {
+	public SetLog() { 
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	public SetLog(ExerciseLog exerciseLog, int set_number, int reps, double weight) {
-		super();
+		super(); 
 		this.exerciseLog = exerciseLog;
 		this.set_number = set_number;
 		this.reps = reps;
 		this.weight = weight;
 	}
-
-	public ExerciseLog getExerciseLog() {
+ 
+	public ExerciseLog getExerciseLog() { 
 		return exerciseLog;
-	}
+	}  
 
 	public void setExerciseLog(ExerciseLog exerciseLog) {
 		this.exerciseLog = exerciseLog;

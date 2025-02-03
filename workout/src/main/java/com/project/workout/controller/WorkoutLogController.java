@@ -84,8 +84,10 @@ public class WorkoutLogController {
     public ResponseEntity<WorkoutLogStatusDTO> markWorkoutAsCancelled(@RequestBody WorkoutLogStatusDTO workoutLogStatusDTO) {
     	WorkoutLogStatusDTO updatedWorkoutLog = workoutLogService.updateWorkoutStatus(
     			workoutLogStatusDTO.getWorkoutLogId(), WorkoutLogStatus.CANCELLED, workoutLogStatusDTO.getEndTime());
+    	
         return ResponseEntity.ok(updatedWorkoutLog);
     }
+    
 	
 
 }

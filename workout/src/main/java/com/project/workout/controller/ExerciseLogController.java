@@ -1,5 +1,7 @@
 package com.project.workout.controller;
 
+import java.io.Console;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.workout.dto.ExerciseLogDTO;
 import com.project.workout.model.ExerciseLog;
 import com.project.workout.service.ExerciseLogService;
 
@@ -26,11 +29,12 @@ public class ExerciseLogController {
     
     @PostMapping 
     public ResponseEntity<ExerciseLog> createExerciseLog(
-    		@RequestParam Long workoutLogId, // workoutLogId from query params
-            @RequestParam Long exerciseId   // exerciseId from query params
+    		@RequestBody ExerciseLogDTO exerciseLogDTO
             ) {
     	try {
-    		ExerciseLog createdExerciseLog = exerciseLogService.createExerciseLog(workoutLogId, exerciseId);
+    		System.out.println("create exercise log");
+    		ExerciseLog createdExerciseLog = exerciseLogService.createExerciseLog(exerciseLogDTO.getWorkoutLogId(), exerciseLogDTO.getExerciseId());
+    		System.out.println("create exercise log successful");
             return new ResponseEntity<>(createdExerciseLog, HttpStatus.CREATED);
 			
 		} catch (Exception e) {

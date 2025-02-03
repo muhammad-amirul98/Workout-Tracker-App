@@ -37,7 +37,9 @@ function CurrentWorkout() {
   );
 
   const location = useLocation();
-  const workoutLogId = location.state?.workoutLogId;
+  // const workoutLogId = location.state?.workoutLogId;
+  const workoutLogId =
+    location.state?.workoutLogId || sessionStorage.getItem("workoutLogId");
 
   //USE EFFECT
   useEffect(() => {
@@ -103,30 +105,22 @@ function CurrentWorkout() {
         [setIndex]: !prev[exerciseId]?.[setIndex],
       },
     }));
-    console.log("hello");
 
     const exerciseLog = exerciseLogs[exerciseId];
     const reps = actualValues[exerciseId]?.[setIndex]?.reps;
     const weight = actualValues[exerciseId]?.[setIndex]?.weight;
 
-    console.log("hello1");
-
     if (!exerciseLog) {
       try {
-        console.log("hello2");
-
         const createdExerciseLog = await createExerciseLog(
-          workoutLogId,
+          Number(workoutLogId),
           exerciseId
         );
-        console.log("hello3");
 
         setExerciseLogs({
           ...exerciseLogs,
           [exerciseId]: createdExerciseLog,
         });
-        console.log("LOGS: " + exerciseLogs);
-
         await createSetLog(createdExerciseLog.id, setIndex, reps, weight);
       } catch (error) {
         console.error("Exercise Log Created, Set Log Creation Error: " + error);
@@ -161,6 +155,7 @@ function CurrentWorkout() {
         await workoutCompleted({ workoutLogId, status, endTime });
         console.log("Workout marked as completed.");
       } else {
+        console.log(workoutLogId);
         await workoutCancelled({ workoutLogId, status, endTime });
         console.log("Workout marked as cancelled.");
       }

@@ -32,6 +32,8 @@ import { useNavigate } from "react-router-dom";
 import { Workout } from "../../types";
 import PlateWeightCalculator from "../utilities/PlateWeightCalculator";
 import { createWorkoutLog } from "../../api/workoutLogapi";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Workoutlist() {
   const { data, error, isSuccess } = useQuery({
@@ -97,15 +99,18 @@ function Workoutlist() {
   const startWorkout = async (workout: Workout) => {
     const storedWorkout = sessionStorage.getItem("currentWorkout");
     if (storedWorkout) {
+      //there is already a workout ongoing
       const parsedWorkout = JSON.parse(storedWorkout);
       if (parsedWorkout.workoutId !== workout.workoutId) {
         const shouldStartNewWorkout = window.confirm(
           "You have a workout currently going on. Do you want to start a new one?"
         );
-
         if (!shouldStartNewWorkout) {
           return; // Exit if the user cancels
         }
+      } else if (parsedWorkout.workoutId === workout.workoutId) {
+        toast.info("You have already started this workout.");
+        return;
       }
     }
 
@@ -123,13 +128,12 @@ function Workoutlist() {
       exerciseLogs: [], // Empty list initially
     };
 
-    // console.log("WORKOUT ID: " + workoutLog.workout.workoutId);
-
     try {
       // Send the workout log to the backend
       const newWorkoutLog = await createWorkoutLog(workoutLog);
-      // console.log("Workout log created:", newWorkoutLog.id);
 
+      sessionStorage.setItem("workoutLogId", newWorkoutLog.id);
+      queryClient.invalidateQueries({ queryKey: ["workoutLogs"] });
       navigate("/currentworkout", {
         state: { workoutLogId: newWorkoutLog.id },
       });

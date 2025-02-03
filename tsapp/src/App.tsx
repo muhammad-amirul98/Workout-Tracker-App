@@ -28,6 +28,8 @@ import ShowChartIcon from "@mui/icons-material/ShowChart";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import CurrentWorkout from "./components/workouts/CurrentWorkout";
 import ProtectedLayout from "./components/utilities/ProtectedLayout";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const queryClient = new QueryClient();
 
@@ -61,6 +63,7 @@ function App() {
 
   return (
     <>
+      <ToastContainer />
       <Container
         maxWidth="xl"
         sx={{

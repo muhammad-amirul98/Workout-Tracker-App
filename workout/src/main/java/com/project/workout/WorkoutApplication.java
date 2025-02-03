@@ -43,7 +43,7 @@ public class WorkoutApplication implements CommandLineRunner {
 		AppUser user = new AppUser("user",
 				"$2a$12$A8erCOL2GtJ8.qZlnXFYjuCLBjU34z6Och.oXnQ8CowweXmG87c/G",
 				"USER", 
-				"user@gmail.com");
+				"user@gmail.com"); 
 		appUserRepository.save(user);
 		
 //		user: admin, pass: admin	
